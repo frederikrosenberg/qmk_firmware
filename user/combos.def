@@ -1,6 +1,39 @@
-COMB(ue, DK_AE,   CTL_U, SFT_E)
-COMB(ei, DK_OSTR, SFT_E, GUI_I)
-COMB(ui, DK_ARNG, CTL_U, GUI_I)
-COMB(ntb, KC_BSPC, SFT_N, MCTL_T)
-COMB(base, CASEWRD, GUI_S, MCTL_T)
-COMB(esc, KC_ESC, GUI_S, SFT_N)
+// ////////// //
+// COLEMAK DH //
+// ////////// //
+
+/*                KEY POSITIONS
+  ╭────────────────────╮ ╭────────────────────╮
+  │  q   c   h   p   v │ │  k   y   o   j   ' │
+  │  r   s   n   t   g │ │  w   u   e   i   a │
+  │  x   m   l   d   b │ │  z   f   ,   .   - │
+  ╰───────────╮ Nm  Sp │ │ Sf  Nv ╭───────────╯
+              ╰────────╯ ╰────────╯            
+*/
+
+// Misc 
+COMB(COMB_ESC, KC_ESC, DK_Q, DK_C)
+COMB(COMB_CASE, CASEWRD, DK_J, QUOTE)
+
+// Media
+COMB(COMB_NEXT,     KC_MNXT,    DK_Y, DK_O, DK_J)
+COMB(COMB_PLAY,     KC_MPLY,    DK_U, DK_E, DK_I)
+COMB(COMB_PREV,     KC_MPRV,    DK_F, DK_COMM, DK_DOT)
+
+// Danish letters
+COMB(COMB_AE,       DK_AE,      DK_O, DK_J)
+COMB(COMB_ARNG,     DK_ARNG,    DK_E, DK_I)
+COMB(COMB_OSTR,     DK_OSTR,    DK_COMM, DK_DOT)
+
+// Brackets
+
+COMB(COMBO_LCBR,    DK_LCBR    ,KC_H, KC_P)                  // {
+COMB(COMBO_LPRN,    DK_LPRN    ,KC_N, KC_T)                  // (
+COMB(COMBO_LT,      DK_LABK    ,KC_R, KC_S)                  // <
+COMB(COMBO_LBRC,    DK_LBRC    ,KC_L, KC_D)                  // [
+
+COMB(COMBO_RCBR,    DK_RCBR    ,KC_Y, KC_O)                  // }
+COMB(COMBO_RPRN,    DK_RPRN    ,KC_U, KC_E)                  // )
+COMB(COMBO_GT ,     DK_RABK    ,KC_I, KC_A)                  // >
+COMB(COMBO_RBRC,    DK_RBRC    ,KC_F, KC_COMM)              // ]
+

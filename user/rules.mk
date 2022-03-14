@@ -4,6 +4,7 @@ COMBO_ENABLE = yes
 
 SRC += user.c
 SRC += features/casemodes.c
+SRC += features/oneshot.c
 
 VPATH += keyboards/gboards
 

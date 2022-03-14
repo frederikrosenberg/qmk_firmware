@@ -6,34 +6,27 @@
 
 enum layers {
     _HANDSDOWN,
-    _LOWER,
-    _RAISE,
-    _ADJUST,
+    _NUM,
+    _NAV,
+    _SYM,
     _SHORTCUTS,
 };
 
 enum my_keycodes {
     CASEWRD = SAFE_RANGE,
+    OS_ALT,
+    OS_MOD,
+    OS_SFT,
+    OS_CTR,
     TOGBASE,
-    QUOTE,
-    FINDALL,
-    ALTTAB,
-    ALTSTAB,
-    COLSEMI,
-    DOTAND,
-    SLASHS,
-    DQQUST,
-    SQEXLM,
-    COMPIP,
-    MIPLUS
+    QUOTE
 };
 
-// Thumbs
-#define RAI_ENT LT(_RAISE, KC_ENT)
-#define CUT_SPC LT(_SHORTCUTS, KC_SPC)
-#define LOW_BPC LT(_LOWER, KC_BSPC)
-#define ADJ_TAB LT(_ADJUST, KC_TAB)
+#define NAV MO(_NAV)
+#define NUM MO(_NUM)
 
+// Thumbs
+#define SPC_SYM LT(_SYM, KC_SPC)
 
 // HANDS DOWN
 #define ALT_R   ALT_T(DK_R)
@@ -50,12 +43,7 @@ enum my_keycodes {
 #define CUT     C(DK_X)
 #define COPY    C(DK_C)
 #define PASTE   C(DK_V)
-
 #define SAVE    C(DK_S)
-#define FIND    C(DK_F)
-#define SFIND   C(S(DK_F))
-#define REPLACE C(DK_R)
-#define SALL    C(DK_A)
 
 #define C_A_DEL C(A(KC_DEL))
 #define C_BSPC  C(KC_BSPC)
