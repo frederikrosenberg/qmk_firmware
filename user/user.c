@@ -31,7 +31,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [_NAV] = LAYOUT_USER(
         //.--------+--------+--------+--------+--------.  .--------+--------+--------+--------+--------.
-            KC_F1,   KC_F2,   KC_F3,   KC_F3,  XXXXXXX,    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  RESET,
+            KC_F1,   KC_F2,   KC_F3,   KC_F4,  XXXXXXX,    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  RESET,
         //|--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------|
             KC_F5,   KC_F6,   KC_F7,   KC_F8,  KC_PENT,    XXXXXXX, KC_LEFT, KC_DOWN,  KC_UP,  KC_RGHT,
         //|--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------|
@@ -43,11 +43,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [_SYM] = LAYOUT_USER(
         //.--------+--------+--------+--------+--------.  .--------+--------+--------+--------+--------.
-           DK_GRV , DK_AT,   DK_LCBR, DK_RCBR, DK_PIPE,    DK_BSLS, DK_LABK, DK_RABK, DK_QUES, DK_UNDS,
+           DK_GRV , DK_AT,   DK_LCBR, DK_RCBR, DK_PIPE,    DK_BSLS, DK_LABK, DK_RABK, DK_QUES, XXXXXXX,
         //|--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------|
            DK_HASH, DK_DLR,  DK_LPRN, DK_RPRN, DK_EXLM,    DK_PLUS, DK_MINS, DK_SLSH, DK_ASTR, DK_PERC,
         //|--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------|
-           DK_PERC, DK_CIRC, DK_LBRC, DK_RBRC, DK_TILD,    DK_AMPR, DK_EQL , DK_UNDS, DK_DOT , XXXXXXX,
+           XXXXXXX, DK_CIRC, DK_LBRC, DK_RBRC, DK_TILD,    DK_AMPR, DK_EQL , DK_UNDS, DK_DOT , XXXXXXX,
         //.--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------.
                                         NUM,   _______,    KC_BSPC, KC_ENT
         //                           .--------+--------.  .--------+--------'
