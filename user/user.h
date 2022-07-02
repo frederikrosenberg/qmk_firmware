@@ -6,6 +6,7 @@
 
 enum layers {
     _HANDSDOWN,
+    _CANARY,
     _NUM,
     _NAV,
     _SYM,

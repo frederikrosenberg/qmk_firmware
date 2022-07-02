@@ -17,9 +17,21 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         //                           .--------+--------|  |--------+--------.
     ),
 
+    [_CANARY] = LAYOUT_USER(
+        //.--------+--------+--------+--------+--------.  .--------+--------+--------+--------+--------.
+             DK_W,    DK_L,    DK_Y,    DK_P,    DK_B,       DK_Z,    DK_F,    DK_O,    DK_U,    QUOTE,
+        //|--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------|
+             DK_C,    DK_R,    DK_S,    DK_T,    DK_G,       DK_M,    DK_N,   DK_E,     DK_I,    DK_A,
+        //|--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------|
+             DK_Q,    DK_J,   DK_V,     DK_D,    DK_K,       DK_X,    DK_H,  DK_SLSH, DK_COMM,  DK_DOT,
+        //.--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------.
+                                        NUM,   SPC_SYM,     OS_SFT,   NAV 
+        //                           .--------+--------|  |--------+--------.
+    ),
+
     [_NUM] = LAYOUT_USER(
         //.--------+--------+--------+--------+--------.  .--------+--------+--------+--------+--------.
-           XXXXXXX, XXXXXXX, WM_LEFT, WM_RGHT, XXXXXXX,    XXXXXXX,   DK_7,    DK_8,    DK_9,  XXXXXXX,
+           TOGBASE, XXXXXXX, WM_LEFT, WM_RGHT, XXXXXXX,    XXXXXXX,   DK_7,    DK_8,    DK_9,  XXXXXXX,
         //|--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------|
             OS_ALT,  OS_MOD,  OS_SFT,  OS_CTR, KC_RCTL,    XXXXXXX,   DK_4,    DK_5,    DK_6,    DK_0,
         //|--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------|
@@ -79,9 +91,12 @@ oneshot_state os_mod_state = os_up_unqueued;
 oneshot_state os_sft_state = os_up_unqueued;
 oneshot_state os_ctr_state = os_up_unqueued;
 
+uint16_t base_layer = _HANDSDOWN;
+
 bool is_oneshot_cancel_key(uint16_t keycode) {
     switch (keycode) {
         case KC_ESC:
+        case KC_NO:
             return true;
         default:
             return false;
@@ -141,6 +156,17 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     }
                 } else {
                     toggle_caps_word();
+                }
+            }
+            return false;
+        case TOGBASE:
+            if (record->event.pressed) {
+                if (base_layer == _HANDSDOWN) {
+                    base_layer = _CANARY;
+                    default_layer_set(1UL << _CANARY);
+                } else {
+                    base_layer = _HANDSDOWN;
+                    default_layer_set(1UL << _HANDSDOWN);
                 }
             }
             return false;

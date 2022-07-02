@@ -14,6 +14,7 @@
 // Misc 
 COMB(COMB_ESC,      KC_ESC,     DK_Q, DK_C)
 COMB(COMB_CASE,     CASEWRD,    DK_J, QUOTE)
+COMB(C_COMB_CASE,   CASEWRD,    DK_U, QUOTE)
 COMB(COMB_ESC_,     KC_ESC,     DK_S, DK_N)
 
 // Media
@@ -26,15 +27,11 @@ COMB(COMB_AE,       DK_AE,      DK_O, DK_J)
 COMB(COMB_ARNG,     DK_ARNG,    DK_E, DK_I)
 COMB(COMB_OSTR,     DK_OSTR,    DK_COMM, DK_DOT)
 
-// Brackets
+COMB(C_COMB_AE,     DK_AE,      DK_O, DK_U)
+COMB(C_COMB_OSTR,   DK_OSTR,    DK_SLSH, DK_COMM)
 
-COMB(COMBO_LCBR,    DK_LCBR    ,KC_H, KC_P)                  // {
-COMB(COMBO_LPRN,    DK_LPRN    ,KC_N, KC_T)                  // (
-COMB(COMBO_LT,      DK_LABK    ,KC_R, KC_S)                  // <
-COMB(COMBO_LBRC,    DK_LBRC    ,KC_L, KC_D)                  // [
-
-COMB(COMBO_RCBR,    DK_RCBR    ,KC_Y, KC_O)                  // }
-COMB(COMBO_RPRN,    DK_RPRN    ,KC_U, KC_E)                  // )
-COMB(COMBO_GT ,     DK_RABK    ,KC_I, KC_A)                  // >
-COMB(COMBO_RBRC,    DK_RBRC    ,KC_F, KC_COMM)              // ]
-
+// Canary layout
+COMB(C_COMB_ESC_,   KC_ESC,     DK_R, DK_S)
+COMB(C_COMB_NEXT,   KC_MNXT,    DK_F, DK_O, DK_U)
+COMB(C_COMB_PLAY,     KC_MPLY,    DK_N, DK_E, DK_I)
+COMB(C_COMB_PREV,     KC_MPRV,    DK_H, DK_SLSH, DK_COMM)

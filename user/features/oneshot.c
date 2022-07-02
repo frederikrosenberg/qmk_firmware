@@ -17,8 +17,11 @@ void update_oneshot(
             // Trigger keydown
             if (*state == os_up_unqueued) {
                 register_code(mod);
+                *state = os_down_unused;
+            } else if (*state == os_up_queued) {
+                *state = os_up_unqueued;
+                unregister_code(mod);
             }
-            *state = os_down_unused;
         } else {
             // Trigger keyup
             switch (*state) {
