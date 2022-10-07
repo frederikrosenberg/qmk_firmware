@@ -2,21 +2,11 @@
 #include "features/casemodes.h"
 #include "features/oneshot.h"
 
-
+#ifdef OLED_ENABLE
+#include "oled.h"
+#endif
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    [_HANDSDOWN] = LAYOUT_USER(
-        //.--------+--------+--------+--------+--------.  .--------+--------+--------+--------+--------.
-             DK_Q,    DK_C,    DK_H,    DK_P,    DK_V,       DK_K,    DK_Y,    DK_O,    DK_J,    QUOTE,
-        //|--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------|
-             DK_R,    DK_S,    DK_N,    DK_T,    DK_G,       DK_W,    DK_U,   DK_E,     DK_I,    DK_A,
-        //|--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------|
-             DK_X,    DK_M,   DK_L,     DK_D,    DK_B,       DK_Z,    DK_F,  DK_COMM,  DK_DOT, DK_MINS,
-        //.--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------.
-                                        NUM,   SPC_SYM,     OS_SFT,   NAV 
-        //                           .--------+--------|  |--------+--------.
-    ),
-
     [_CANARY] = LAYOUT_USER(
         //.--------+--------+--------+--------+--------.  .--------+--------+--------+--------+--------.
              DK_W,    DK_L,    DK_Y,    DK_P,    DK_B,       DK_Z,    DK_F,    DK_O,    DK_U,    QUOTE,
@@ -31,7 +21,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [_NUM] = LAYOUT_USER(
         //.--------+--------+--------+--------+--------.  .--------+--------+--------+--------+--------.
-           TOGBASE, XXXXXXX, WM_LEFT, WM_RGHT, XXXXXXX,    XXXXXXX,   DK_7,    DK_8,    DK_9,  XXXXXXX,
+           XXXXXXX, CASEWRD, WM_LEFT, WM_RGHT, XXXXXXX,    XXXXXXX,   DK_7,    DK_8,    DK_9,  TOGBASE,
         //|--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------|
             OS_ALT,  OS_MOD,  OS_SFT,  OS_CTR, KC_RCTL,    XXXXXXX,   DK_4,    DK_5,    DK_6,    DK_0,
         //|--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------|
@@ -64,18 +54,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                         NUM,   _______,    KC_BSPC, KC_ENT
         //                           .--------+--------.  .--------+--------'
     ),
-
-    [_SHORTCUTS] = LAYOUT_USER(
-        //.--------+--------+--------+--------+--------.  .--------+--------+--------+--------+--------.
-           XXXXXXX,XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-        //|--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------|
-             UNDO,    CUT,     COPY,   PASTE,    SAVE,     XXXXXXX,  KC_INS, KC_DEL,  XXXXXXX, XXXXXXX,
-        //|--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------|
-           XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, C_A_DEL,    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-        //.--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------.
-                                      _______,  _______,   KC_BSPC, _______
-        //                           .--------+--------.  .--------+--------'
-    )
 };
 
 
@@ -120,6 +98,11 @@ bool is_oneshot_ignored_key(uint16_t keycode) {
 
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+#ifdef OLED_ENABLE
+    if (record->event.pressed) {
+        process_record_oled(keycode, record);
+    }
+#endif
 
     if (!process_mod_keys(keycode, record)) {
         return false;
@@ -159,17 +142,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 }
             }
             return false;
-        case TOGBASE:
-            if (record->event.pressed) {
-                if (base_layer == _HANDSDOWN) {
-                    base_layer = _CANARY;
-                    default_layer_set(1UL << _CANARY);
-                } else {
-                    base_layer = _HANDSDOWN;
-                    default_layer_set(1UL << _HANDSDOWN);
-                }
-            }
-            return false;
         default:
             return true;
     }
@@ -178,7 +150,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 void keyboard_post_init_user(void) {
     // Set default layer
-    default_layer_set(1UL << _HANDSDOWN);
+    default_layer_set(1UL << _CANARY);
 
 #ifdef RGBLIGHT_ENABLE
     //rgblight_enable_noeeprom(); // Enables RGB, without saving settings
@@ -188,14 +160,3 @@ void keyboard_post_init_user(void) {
 }
 
 
-void suspend_power_down_user(void) {
-#ifdef OLED_DRIVER_ENABLE
-    oled_off();
-#endif
-}
-
-void suspend_wakeup_init_user(void) {
-#ifdef OLED_DRIVER_ENABLE
-    oled_on();
-#endif
-}

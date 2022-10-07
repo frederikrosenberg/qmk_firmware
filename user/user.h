@@ -5,8 +5,8 @@
 #include "keymap_danish.h"
 
 enum layers {
-    _HANDSDOWN,
     _CANARY,
+    _HANDSDOWN,
     _NUM,
     _NAV,
     _SYM,

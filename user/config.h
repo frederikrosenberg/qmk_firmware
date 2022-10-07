@@ -1,5 +1,6 @@
-
 #pragma once
+
+#define LAYER_STATE_8BIT
 
 #define IGNORE_MOD_TAP_INTERRUPT
 #define TAPPING_TERM 140
@@ -7,3 +8,21 @@
 #define COMBO_ALLOW_ACTION_KEYS
 #define COMBO_VARIABLE_LEN
 #define COMBO_TERM 50
+
+
+#ifdef OLED_ENABLE
+  #define OLED_DISPLAY_128X64
+  #define SPLIT_OLED_ENABLE
+  #define OLED_TIMEOUT 30000
+  #define OLED_UPDATE_INTERVAL 100
+  #define OLED_FONT_H "font.h"
+  #define OLED_FONT_END 255
+  #define OLED_BRIGHTNESS 64
+  #define DEBUG_MATRIX_SCAN_RATE
+#endif
+
+#define NO_ACTION_MACRO
+#define NO_ACTION_FUNCTION
+#define DISABLE_LEADER
+#undef LOCKING_SUPPORT_ENABLE
+#undef LOCKING_RESYNC_ENABLE
