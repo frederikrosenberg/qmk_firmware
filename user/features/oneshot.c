@@ -1,6 +1,20 @@
-/*
- * @author: Callum Oakley
- * @link: https://github.com/callum-oakley
+/* Copyright 2022 Callum Oakley @callum-oakley
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ * Changes by Frederik Rosenberg @frederikrosenberg: allow to cancel 
+ * the oneshot modifier by hitting the modifier again.
  */
 
 #include "oneshot.h"
@@ -18,6 +32,7 @@ void update_oneshot(
             if (*state == os_up_unqueued) {
                 register_code(mod);
                 *state = os_down_unused;
+            // Cancel if modifier is pressed again.
             } else if (*state == os_up_queued) {
                 *state = os_up_unqueued;
                 unregister_code(mod);
