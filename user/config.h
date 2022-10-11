@@ -35,6 +35,7 @@
   #define OLED_FONT_END 255
   #define OLED_BRIGHTNESS 64
   #define DEBUG_MATRIX_SCAN_RATE
+  #define SPLIT_LAYER_STATE_ENABLE
 #endif
 
 #define NO_ACTION_MACRO
