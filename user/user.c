@@ -23,6 +23,18 @@
 #endif
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
+    [_QWERTY] = LAYOUT_USER(
+        //.--------+--------+--------+--------+--------.  .--------+--------+--------+--------+--------.
+             DK_Q,    DK_W,    DK_E,    DK_R,    DK_T,       DK_Y,    DK_U,    DK_I,    DK_O,    DK_P,
+        //|--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------|
+             DK_A,    DK_S,    DK_D,    DK_F,    DK_G,       DK_H,    DK_J,    DK_K,    DK_L,   QUOTE,
+        //|--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------|
+             DK_Z,    DK_X,    DK_C,    DK_V,    DK_B,       DK_N,    DK_M,  DK_COMM,  DK_DOT, DK_MINS,
+        //.--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------.
+                                        NUM,   SPC_SYM,     OS_SFT,   NAV 
+        //                           .--------+--------|  |--------+--------.
+    ),
+
     [_CANARY] = LAYOUT_USER(
         //.--------+--------+--------+--------+--------.  .--------+--------+--------+--------+--------.
              DK_W,    DK_L,    DK_Y,    DK_P,    DK_B,       DK_Z,    DK_F,    DK_O,    DK_U,    QUOTE,
@@ -85,7 +97,7 @@ oneshot_state os_mod_state = os_up_unqueued;
 oneshot_state os_sft_state = os_up_unqueued;
 oneshot_state os_ctr_state = os_up_unqueued;
 
-uint16_t base_layer = _HANDSDOWN;
+uint16_t base_layer = _CANARY;
 
 bool is_oneshot_cancel_key(uint16_t keycode) {
     switch (keycode) {
@@ -158,6 +170,16 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 }
             }
             return false;
+        case TOGBASE:
+            if (record->event.pressed) {
+                if (base_layer == _CANARY) {
+                    base_layer = _QWERTY;
+                } else {
+                    base_layer = _CANARY;
+                }
+
+                default_layer_set(1UL << base_layer);
+            }
         default:
             return true;
     }

@@ -12,26 +12,44 @@
 */
 
 // Misc 
-COMB(COMB_ESC,      KC_ESC,     DK_Q, DK_C)
-COMB(COMB_CASE,     CASEWRD,    DK_J, QUOTE)
-COMB(C_COMB_CASE,   CASEWRD,    DK_U, QUOTE)
-COMB(COMB_ESC_,     KC_ESC,     DK_S, DK_N)
+COMB(C_COMB_CASE,     CASEWRD,    DK_U, QUOTE)
+COMB(C_COMB_ESC,      KC_ESC,     DK_R, DK_S)
 
 // Media
-COMB(COMB_NEXT,     KC_MNXT,    DK_Y, DK_O, DK_J)
-COMB(COMB_PLAY,     KC_MPLY,    DK_U, DK_E, DK_I)
-COMB(COMB_PREV,     KC_MPRV,    DK_F, DK_COMM, DK_DOT)
-
-// Danish letters
-COMB(COMB_AE,       DK_AE,      DK_O, DK_J)
-COMB(COMB_ARNG,     DK_ARNG,    DK_E, DK_I)
-COMB(COMB_OSTR,     DK_OSTR,    DK_COMM, DK_DOT)
-
-COMB(C_COMB_AE,     DK_AE,      DK_O, DK_U)
-COMB(C_COMB_OSTR,   DK_OSTR,    DK_SLSH, DK_COMM)
-
-// Canary layout
-COMB(C_COMB_ESC_,   KC_ESC,     DK_R, DK_S)
-COMB(C_COMB_NEXT,   KC_MNXT,    DK_F, DK_O, DK_U)
+COMB(C_COMB_NEXT,     KC_MNXT,    DK_F, DK_O, DK_U)
 COMB(C_COMB_PLAY,     KC_MPLY,    DK_N, DK_E, DK_I)
 COMB(C_COMB_PREV,     KC_MPRV,    DK_H, DK_SLSH, DK_COMM)
+
+// Danish letters
+COMB(C_COMB_ARNG,     DK_ARNG,    DK_E, DK_I)
+COMB(C_COMB_AE,       DK_AE,      DK_O, DK_U)
+COMB(C_COMB_OSTR,     DK_OSTR,    DK_SLSH, DK_COMM)
+
+
+// ////// //
+// QWERTY //
+// ////// //
+
+/*                KEY POSITIONS
+  ╭────────────────────╮ ╭────────────────────╮
+  │  q   w   e   r   t │ │  y   u   i   o   p │
+  │  a   s   d   f   g │ │  h   j   k   l   ' │
+  │  z   x   c   v   b │ │  n   m   ,   .   - │
+  ╰───────────╮ Nm  Sp │ │ Sf  Nv ╭───────────╯
+              ╰────────╯ ╰────────╯            
+*/
+
+// Misc 
+COMB(Q_COMB_CASE,     CASEWRD,    DK_O, DK_P)
+COMB(Q_COMB_ESC,      KC_ESC,     DK_S, DK_D)
+
+// Media
+COMB(Q_COMB_NEXT,     KC_MNXT,    DK_U, DK_I, DK_O)
+COMB(Q_COMB_PLAY,     KC_MPLY,    DK_J, DK_K, DK_L)
+COMB(Q_COMB_PREV,     KC_MPRV,    DK_M, DK_COMM, DK_DOT)
+
+// Danish letters
+COMB(Q_COMB_ARNG,     DK_ARNG,    DK_I, DK_O)
+COMB(Q_COMB_AE,       DK_AE,      DK_K, DK_L)
+COMB(Q_COMB_OSTR,     DK_OSTR,    DK_COMM, DK_DOT)
+

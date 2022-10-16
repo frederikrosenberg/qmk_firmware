@@ -256,6 +256,7 @@ void render_layer(uint8_t col, uint8_t line) {
     oled_set_cursor(col, line);
     uint8_t layer;
     switch (get_highest_layer(layer_state | default_layer_state)) {
+        case _QWERTY:
         case _CANARY:
             layer = 0;
             break;
@@ -277,6 +278,9 @@ void render_layer_text(uint8_t col, uint8_t line) {
     oled_set_cursor(col, line);
     oled_write_P(PSTR("Layer: "), false);
     switch (get_highest_layer(layer_state | default_layer_state)) {
+        case _QWERTY:
+            oled_write_P(PSTR("  QWERTY"), false);
+            break;
         case _CANARY:
             oled_write_P(PSTR("  Canary"), false);
             break;
@@ -313,7 +317,17 @@ void render_master(void) {
     render_mods(6, 4);
     render_layer_text(6, 5);
     oled_set_cursor(6, 6);
-    oled_write_P(PSTR("Layout:  Canary"), false);
+    switch (get_highest_layer(default_layer_state)) {
+        case _QWERTY:
+            oled_write_P(PSTR("Layout:  QWERTY"), false);
+            break;
+        case _CANARY:
+            oled_write_P(PSTR("Layout:  Canary"), false);
+            break;
+        default:
+            oled_write_P(PSTR("Layout: Unknown"), false);
+            break;
+    }
 }
 
 void render_slave(void) {
