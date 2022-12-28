@@ -6,7 +6,7 @@ OLED_ENABLE = yes
 
 LTO_ENABLE = yes
 
-SRC += user.c
+INTROSPECTION_KEYMAP_C += user.c
 SRC += features/casemodes.c
 SRC += features/oneshot.c
 
