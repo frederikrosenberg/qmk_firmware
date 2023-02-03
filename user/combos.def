@@ -39,6 +39,7 @@ COMB(C_COMB_OSTR,     DK_OSTR,    DK_SLSH, DK_COMM)
               ╰────────╯ ╰────────╯            
 */
 
+/*
 // Misc 
 COMB(Q_COMB_CASE,     CASEWRD,    DK_O, DK_P)
 COMB(Q_COMB_ESC,      KC_ESC,     DK_S, DK_D)
@@ -53,3 +54,4 @@ COMB(Q_COMB_ARNG,     DK_ARNG,    DK_I, DK_O)
 COMB(Q_COMB_AE,       DK_AE,      DK_K, DK_L)
 COMB(Q_COMB_OSTR,     DK_OSTR,    DK_COMM, DK_DOT)
 
+*/

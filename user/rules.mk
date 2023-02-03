@@ -3,6 +3,7 @@
 
 COMBO_ENABLE = yes
 OLED_ENABLE = yes
+RGBLIGTH_ENABLE = no
 
 LTO_ENABLE = yes
 

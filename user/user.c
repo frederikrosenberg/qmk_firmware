@@ -73,11 +73,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [_SYM] = LAYOUT_USER(
         //.--------+--------+--------+--------+--------.  .--------+--------+--------+--------+--------.
-           DK_GRV , DK_AT,   DK_LCBR, DK_RCBR, DK_PIPE,    DK_BSLS, DK_LABK, DK_RABK, DK_QUES, XXXXXXX,
+           DK_GRV , DK_AT,   DK_LCBR, DK_RCBR, DK_PIPE,    DK_BSLS, DK_LABK, DK_RABK, DK_QUES,  QUOTE,
         //|--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------|
            DK_HASH, DK_DLR,  DK_LPRN, DK_RPRN, DK_EXLM,    DK_PLUS, DK_MINS, DK_SLSH, DK_ASTR, DK_PERC,
         //|--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------|
-           XXXXXXX, DK_CIRC, DK_LBRC, DK_RBRC, DK_TILD,    DK_AMPR, DK_EQL , DK_UNDS, DK_DOT , XXXXXXX,
+           XXXXXXX, DK_CIRC, DK_LBRC, DK_RBRC, DK_TILD,    DK_AMPR, DK_EQL , DK_UNDS, DK_DOT , DK_DQUO,
         //.--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------.
                                         NUM,   _______,    KC_BSPC, KC_ENT
         //                           .--------+--------.  .--------+--------'
@@ -188,7 +188,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 void keyboard_post_init_user(void) {
     // Set default layer
-    default_layer_set(1UL << _CANARY);
+    default_layer_set(1UL << base_layer);
 
 #ifdef RGBLIGHT_ENABLE
     //rgblight_enable_noeeprom(); // Enables RGB, without saving settings
