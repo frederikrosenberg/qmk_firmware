@@ -77,7 +77,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         //|--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------|
            DK_HASH, DK_DLR,  DK_LPRN, DK_RPRN, DK_EXLM,    DK_PLUS, DK_MINS, DK_SLSH, DK_ASTR, DK_PERC,
         //|--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------|
-           XXXXXXX, DK_CIRC, DK_LBRC, DK_RBRC, DK_TILD,    DK_AMPR, DK_EQL , DK_UNDS, DK_DOT , DK_DQUO,
+           DK_ACUT, DK_CIRC, DK_LBRC, DK_RBRC, DK_TILD,    DK_AMPR, DK_EQL , DK_UNDS, DK_DOT , DK_DQUO,
         //.--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------.
                                         NUM,   _______,    KC_BSPC, KC_ENT
         //                           .--------+--------.  .--------+--------'
