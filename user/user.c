@@ -49,7 +49,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [_NUM] = LAYOUT_USER(
         //.--------+--------+--------+--------+--------.  .--------+--------+--------+--------+--------.
-           XXXXXXX, CASEWRD, WM_LEFT, WM_RGHT, XXXXXXX,    XXXXXXX,   DK_7,    DK_8,    DK_9,  TOGBASE,
+           AC_TOGG, CASEWRD, WM_LEFT, WM_RGHT, XXXXXXX,    XXXXXXX,   DK_7,    DK_8,    DK_9,  TOGBASE,
         //|--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------|
             OS_ALT,  OS_MOD,  OS_SFT,  OS_CTR, KC_RCTL,    XXXXXXX,   DK_4,    DK_5,    DK_6,    DK_0,
         //|--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------|

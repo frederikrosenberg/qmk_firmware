@@ -2,8 +2,9 @@
 # See rules at https://docs.qmk.fm/#/config_options?id=the-rulesmk-file
 
 COMBO_ENABLE = yes
-OLED_ENABLE = yes
+OLED_ENABLE = no
 RGBLIGTH_ENABLE = no
+AUTOCORRECT_ENABLE = yes
 
 LTO_ENABLE = yes
 
