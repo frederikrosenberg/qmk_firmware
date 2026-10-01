@@ -46,6 +46,10 @@ $arguments = @(
 
 if ($Debug) {
     $arguments += @('-e', 'KEYBOARD_DEBUG=1')
+    Write-Host 'DEBUG BUILD: Autocorrect is DISABLED and omitted from this firmware to make room for diagnostics. AC_TOGG cannot enable it. Reflash without -Debug to restore autocorrect.' -ForegroundColor Yellow
+}
+else {
+    Write-Host 'NORMAL BUILD: Autocorrect is included; AC_TOGG controls whether it is enabled.'
 }
 
 Push-Location -LiteralPath $QmkFirmwareDir

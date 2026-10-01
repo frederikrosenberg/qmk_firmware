@@ -1,0 +1,259 @@
+# Personal autocorrect candidates from conversation review (2026-10-01)
+#
+# Reviewed 2,266 deduplicated messages across 378 represented conversations,
+# using local Codex history/archives and 33 accessible ChatGPT conversations.
+# Older cloud messages not exposed by the app were unavailable.
+# Counts are observations in deduplicated stored messages, not typing rates.
+#
+# Removed extra repeated letters (including repeats separated by other letters),
+# changes involving only double-letter counts, and mixed typos with extra
+# adjacent repeats. Missing-i-only mistakes are excluded too.
+# All triggers require both whole-word boundaries: :typo:.
+#
+# Bilingual checks use pinned LibreOffice Danish, US English, and UK English
+# Hunspell dictionaries (including inflections/compound lookup), plus the
+# Webster/GCIDE English lists. Also checked 1,785,219 overgenerated Danish
+# root/affix forms for fragments next to non-ASCII characters, since QMK can
+# treat Danish letters as word boundaries. Existing-trigger overlaps and
+# replacements matching another trigger were removed.
+# See tests/validate_autocorrect.py and tests/autocorrect_validation.json.
+#
+# No remaining conflicts were found in those checks. Dictionaries cannot
+# guarantee safety for every name, identifier, rare word, or new compound.
+# The active dictionary is now audited too; most original rules are retained.
+#
+# The 25 recurring corrections below are included in the active source,
+# user/autocorrection_dict_extra.txt, and its generated autocorrect_data.h.
+# The one-off candidates remain inactive. Regenerate the active header after
+# changing the active source; editing this candidate file alone has no effect.
+#
+
+# Recurring candidates not already listed in the existing dictionary
+# Observed 10 times
+:clearence: -> clearance
+# Observed 10 times
+:sholud: -> should
+# Observed 6 times
+:hte: -> the
+# Observed 6 times
+:plesae: -> please
+# Observed 5 times
+:mintues: -> minutes
+# Observed 4 times
+:hcanges: -> changes
+# Observed 3 times
+:cretae: -> create
+# Observed 3 times
+:mandory: -> mandatory
+# Observed 3 times
+:occipied: -> occupied
+# Observed 3 times
+:plese: -> please
+# Observed 3 times
+:schenen: -> schengen
+# Observed 2 times
+:assigment: -> assignment
+# Observed 2 times
+:authoritive: -> authoritative
+# Observed 2 times
+:branc: -> branch
+# Observed 2 times
+:chagnes: -> changes
+# Observed 2 times
+:desgin: -> design
+# Observed 2 times
+:filghts: -> flights
+# Observed 2 times
+:flie: -> file
+# Observed 2 times
+:hvae: -> have
+# Observed 2 times
+:insigts: -> insights
+# Observed 2 times
+:remaing: -> remaining
+# Observed 2 times
+:remakrs: -> remarks
+# Observed 2 times
+:ruway: -> runway
+# Observed 2 times
+:someting: -> something
+# Observed 2 times
+:tihs: -> this
+
+# One-off candidates not already listed in the existing dictionary
+:acitve: -> active
+:acknowledeg: -> acknowledge
+:acually: -> actually
+:againt: -> against
+:agaist: -> against
+:aguest: -> august
+:ahve: -> have
+:aicraft: -> aircraft
+:anwser: -> answer
+:anyoing: -> annoying
+:aothoritative: -> authoritative
+:appiled: -> applied
+:appliaction: -> application
+:appropiate: -> appropriate
+:architecuter: -> architecture
+:aroand: -> around
+:aroind: -> around
+:audinece: -> audience
+:authoritave: -> authoritative
+:avialible: -> available
+:avilaible: -> available
+:bigu: -> big
+:bunrch: -> bunch
+:cabable: -> capable
+:cahnges: -> changes
+:calucate: -> calculate
+:carog: -> cargo
+:chages: -> changes
+:challange: -> challenge
+:chanegs: -> changes
+:chcek: -> check
+:clearece: -> clearance
+:cliet: -> client
+:coflicts: -> conflicts
+:colaspable: -> collapsible
+:compatable: -> compatible
+:configuable: -> configurable
+:confimerd: -> confirmed
+:conlficts: -> conflicts
+:connction: -> connection
+:considaration: -> consideration
+:consitently: -> consistently
+:convered: -> converted
+:correctu: -> correct
+:cotainenr: -> container
+:countires: -> countries
+:craete: -> create
+:creata: -> create
+:creted: -> created
+:critial: -> critical
+:dcoker: -> docker
+:defnault: -> default
+:deparuter: -> departure
+:dependecies: -> dependencies
+:destingouish: -> distinguish
+:dircets: -> directs
+:disigne: -> design
+:disired: -> desired
+:dislogue: -> dialogue
+:doig: -> doing
+:ealier: -> earlier
+:eveing: -> evening
+:evualate: -> evaluate
+:excuted: -> executed
+:extarct: -> extract
+:filght: -> flight
+:flighs: -> flights
+:follwing: -> following
+:fonrtend: -> frontend
+:fosuc: -> focus
+:freqenuenly: -> frequently
+:frotnend: -> frontend
+:gaint: -> giant
+:genrated: -> generated
+:handness: -> handedness
+:happining: -> happening
+:hlep: -> help
+:holdnig: -> holding
+:horizantal: -> horizontal
+:horriable: -> horrible
+:htat: -> that
+:htis: -> this
+:ilmit: -> limit
+:implemeted: -> implemented
+:implmented: -> implemented
+:incoparote: -> incorporate
+:indendenly: -> independently
+:indivual: -> individual
+:infomration: -> information
+:interseted: -> interested
+:intforation: -> information
+:iszes: -> sizes
+:keyboardu: -> keyboard
+:keybroads: -> keyboards
+:lables: -> labels
+:lenast: -> least
+:levae: -> leave
+:listend: -> listen
+:maually: -> manually
+:maunally: -> manually
+:messag: -> message
+:mesurements: -> measurements
+:metadate: -> metadata
+:mintnues: -> minutes
+:negotiacte: -> negotiate
+:nesseary: -> necessary
+:nessesarily: -> necessarily
+:obvisouly: -> obviously
+:occipies: -> occupies
+:occoied: -> occupied
+:ocipied: -> occupied
+:opoents: -> opponents
+:oppunity: -> opportunity
+:opsition: -> position
+:pasued: -> paused
+:pelase: -> please
+:percentagw: -> percentage
+:performace: -> performance
+:performacn: -> performance
+:pirmary: -> primary
+:plaese: -> please
+:playright: -> playwright
+:pleasex: -> please
+:plesaeg: -> please
+:plseae: -> please
+:ponit: -> point
+:poratiner: -> portainer
+:porvider: -> provider
+:powersell: -> powershell
+:predited: -> predicted
+:prerevre: -> preserve
+:preverse: -> preserve
+:qucik: -> quick
+:regetting: -> regretting
+:regulary: -> regularly
+:relaese: -> release
+:relavnt: -> relevant
+:restrcition: -> restriction
+:retrival: -> retrieval
+:satnd: -> stand
+:scrathpad: -> scratchpad
+:screeshots: -> screenshots
+:scrpits: -> scripts
+:sebtember: -> september
+:senario: -> scenario
+:severice: -> service
+:shoul: -> should
+:snopshot: -> snapshot
+:spwaing: -> spawning
+:srcipt: -> script
+:stlil: -> still
+:strackpad: -> scratchpad
+:structuer: -> structure
+:surch: -> such
+:teirs: -> tiers
+:thorugh: -> through
+:thourgh: -> through
+:thre: -> there
+:timeing: -> timing
+:tirggered: -> triggered
+:traget: -> target
+:unavailbel: -> unavailable
+:unaviable: -> unavailable
+:unavialable: -> unavailable
+:unawnsered: -> unanswered
+:usch: -> such
+:visable: -> visible
+:visinity: -> vicinity
+:waht: -> what
+:warrents: -> warrants
+:weahter: -> weather
+:wedensday: -> wednesday
+:wiht: -> with
+:wihtout: -> without
+:wreckig: -> wrecking
+:wtih: -> with

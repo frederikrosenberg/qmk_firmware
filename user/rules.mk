@@ -43,6 +43,7 @@ AVR_USE_MINIMAL_PRINTF = yes
 
 ifeq ($(KEYBOARD_DEBUG), 1)
     CONSOLE_ENABLE = yes
-    # Keep key/matrix diagnostics within rev1 flash capacity.
+    # Omit the autocorrect dictionary to leave space for key/matrix diagnostics.
+    AUTOCORRECT_ENABLE = no
     OPT_DEFS += -DKEYBOARD_DEBUG
 endif

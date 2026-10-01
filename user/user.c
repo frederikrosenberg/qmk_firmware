@@ -232,7 +232,6 @@ void keyboard_post_init_user(void) {
 #ifdef KEYBOARD_DEBUG
     debug_enable = true;
     debug_matrix = true;
-    uprintf("Key diagnostics enabled: matrix changes and key events\n");
 #endif
 
 #ifdef RGBLIGHT_ENABLE

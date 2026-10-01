@@ -13,10 +13,10 @@
 # limitations under the License.
 #
 #
-# This is a larger example typo dictionary containing 400 entries. It builds to
-# a table of about 6000 bytes, so you'll need a keyboard with a generous
-# amount of free firmware space to use the full dictionary. Alternatively, pick
-# out a subset of entries to a separate file, then build a table from that.
+# All 400 original rules are retained with their original matching behavior,
+# plus 25 recurring personal corrections checked against English and Danish.
+# Existing rules are intentionally preserved at the user's request.
+# Generate user/autocorrect_data.h from this file after editing it.
 #
 # Dictionary syntax:
 # Each line of this file defines one typo correction entry with the syntax
@@ -471,3 +471,29 @@ whereever     -> wherever
 wherre        -> where
 wierd         -> weird
 
+# Recurring personal corrections (whole-word matches; bilingual checked)
+:clearence: -> clearance
+:sholud: -> should
+:hte: -> the
+:plesae: -> please
+:mintues: -> minutes
+:hcanges: -> changes
+:cretae: -> create
+:mandory: -> mandatory
+:occipied: -> occupied
+:plese: -> please
+:schenen: -> schengen
+:assigment: -> assignment
+:authoritive: -> authoritative
+:branc: -> branch
+:chagnes: -> changes
+:desgin: -> design
+:filghts: -> flights
+:flie: -> file
+:hvae: -> have
+:insigts: -> insights
+:remaing: -> remaining
+:remakrs: -> remarks
+:ruway: -> runway
+:someting: -> something
+:tihs: -> this

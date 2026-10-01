@@ -1,0 +1,381 @@
+{
+  "personal_entries": 201,
+  "english_word_list_size": 262866,
+  "hunspell_roots": {
+    "da_DK": 177228,
+    "en_US": 49568,
+    "en_GB": 97200
+  },
+  "danish_forms_checked_including_overgeneration": 1785219,
+  "problems": {},
+  "active_entries": 425,
+  "active_affix_forms_checked": {
+    "da_DK": 1785219,
+    "en_US": 129609,
+    "en_GB": 273999
+  },
+  "active_problems": {
+    ":theri": {
+      "reason": "Valid/recognized word, name, inflection or compound",
+      "languages": [
+        "da_DK"
+      ]
+    },
+    "realy": {
+      "reason": "Valid/recognized word, name, inflection or compound",
+      "languages": [
+        "en_US",
+        "en_GB"
+      ]
+    },
+    "feild": {
+      "reason": "Valid/recognized word, name, inflection or compound",
+      "languages": [
+        "da_DK"
+      ]
+    },
+    "aberation": {
+      "reason": "Valid/recognized word, name, inflection or compound",
+      "languages": [
+        "da_DK"
+      ]
+    },
+    "alledge": {
+      "reason": "Valid/recognized word, name, inflection or compound",
+      "languages": []
+    },
+    "calander": {
+      "reason": "Valid/recognized word, name, inflection or compound",
+      "languages": []
+    },
+    ":grammer": {
+      "reason": "Valid/recognized word, name, inflection or compound",
+      "languages": []
+    },
+    "looses:": {
+      "reason": "Valid/recognized word, name, inflection or compound",
+      "languages": [
+        "da_DK",
+        "en_US",
+        "en_GB"
+      ]
+    },
+    "morgage": {
+      "reason": "Valid/recognized word, name, inflection or compound",
+      "languages": [
+        "da_DK"
+      ]
+    },
+    "parralel": {
+      "reason": "Valid/recognized word, name, inflection or compound",
+      "languages": [
+        "da_DK"
+      ]
+    },
+    "cacheing": {
+      "reason": "Valid/recognized word, name, inflection or compound",
+      "languages": [
+        "en_GB"
+      ]
+    },
+    "complier": {
+      "reason": "Valid/recognized word, name, inflection or compound",
+      "languages": [
+        "en_GB"
+      ]
+    },
+    "indicies": {
+      "reason": "Valid/recognized word, name, inflection or compound",
+      "languages": [
+        "da_DK"
+      ]
+    },
+    "overide": {
+      "reason": "Valid/recognized word, name, inflection or compound",
+      "languages": [
+        "da_DK"
+      ]
+    },
+    "singed": {
+      "reason": "Valid/recognized word, name, inflection or compound",
+      "languages": [
+        "en_US",
+        "en_GB"
+      ]
+    },
+    ":ture": {
+      "reason": "Valid/recognized word, name, inflection or compound",
+      "languages": [
+        "da_DK"
+      ]
+    },
+    "retun": {
+      "reason": "Valid/recognized word, name, inflection or compound",
+      "languages": [
+        "da_DK"
+      ]
+    },
+    ":tothe": {
+      "reason": "Valid/recognized word, name, inflection or compound",
+      "languages": [
+        "da_DK"
+      ]
+    },
+    ":choses": {
+      "reason": "Valid/recognized word, name, inflection or compound",
+      "languages": [
+        "en_GB"
+      ]
+    },
+    "belive": {
+      "reason": "Valid/recognized word, name, inflection or compound",
+      "languages": [
+        "da_DK"
+      ]
+    },
+    "coform": {
+      "reason": "Valid/recognized word, name, inflection or compound",
+      "languages": [
+        "da_DK"
+      ]
+    },
+    "ganerate": {
+      "reason": "Valid/recognized word, name, inflection or compound",
+      "languages": [
+        "da_DK"
+      ]
+    },
+    "importamt": {
+      "reason": "Valid/recognized word, name, inflection or compound",
+      "languages": [
+        "da_DK"
+      ]
+    },
+    "insted": {
+      "reason": "Valid/recognized word, name, inflection or compound",
+      "languages": [
+        "da_DK"
+      ]
+    },
+    "postion": {
+      "reason": "Valid/recognized word, name, inflection or compound",
+      "languages": [
+        "da_DK"
+      ]
+    },
+    "refered": {
+      "reason": "Valid/recognized word, name, inflection or compound",
+      "languages": [
+        "da_DK"
+      ]
+    },
+    "similiar": {
+      "reason": "Valid/recognized word, name, inflection or compound",
+      "languages": [
+        "da_DK"
+      ]
+    },
+    "tranpose": {
+      "reason": "Valid/recognized word, name, inflection or compound",
+      "languages": [
+        "da_DK"
+      ]
+    },
+    "udpate": {
+      "reason": "Valid/recognized word, name, inflection or compound",
+      "languages": [
+        "da_DK"
+      ]
+    },
+    "allign": {
+      "reason": "Trigger matches a dictionary word",
+      "language": "English",
+      "example": "allignment"
+    },
+    "arund": {
+      "reason": "Trigger matches a dictionary word",
+      "language": "English",
+      "example": "arundelian"
+    },
+    ":asthe": {
+      "reason": "Trigger matches a dictionary word",
+      "language": "English",
+      "example": "asthenia"
+    },
+    "ceratin": {
+      "reason": "Trigger matches a dictionary word",
+      "language": "English",
+      "example": "ceratine"
+    },
+    "inital": {
+      "reason": "Trigger matches a dictionary word",
+      "language": "English",
+      "example": "crinital"
+    },
+    "contian": {
+      "reason": "Trigger matches a dictionary word",
+      "language": "English",
+      "example": "dracontian"
+    },
+    "aparent": {
+      "reason": "Trigger matches a dictionary word",
+      "language": "English",
+      "example": "extraparental"
+    },
+    "flase": {
+      "reason": "Trigger matches a dictionary word",
+      "language": "English",
+      "example": "flaser"
+    },
+    ":hapen": {
+      "reason": "Trigger matches a dictionary word",
+      "language": "English",
+      "example": "hapenny"
+    },
+    "certian": {
+      "reason": "Trigger matches a dictionary word",
+      "language": "English",
+      "example": "lacertian"
+    },
+    "aganist": {
+      "reason": "Trigger matches a dictionary word",
+      "language": "English",
+      "example": "paganist"
+    },
+    "abotu": {
+      "reason": "Trigger matches a dictionary word",
+      "language": "English",
+      "example": "parabotulism"
+    },
+    "reprot": {
+      "reason": "Trigger matches a dictionary word",
+      "language": "English",
+      "example": "reprotect"
+    },
+    ":thier": {
+      "reason": "Trigger matches a dictionary word",
+      "language": "English",
+      "example": "thierry"
+    },
+    "accomodate": {
+      "reason": "Trigger matches a dictionary word",
+      "language": "English",
+      "example": "unaccomodated"
+    },
+    "recuring": {
+      "reason": "Trigger matches a dictionary word",
+      "language": "English",
+      "example": "unrecuring"
+    },
+    "surpress": {
+      "reason": "Trigger matches a dictionary word",
+      "language": "English",
+      "example": "usurpress"
+    },
+    "wherre": {
+      "reason": "Trigger matches a dictionary word",
+      "language": "English",
+      "example": "wherret"
+    },
+    "arround": {
+      "reason": "Trigger matches a dictionary word",
+      "language": "English",
+      "example": "yearround"
+    },
+    "littel": {
+      "reason": "Trigger matches a dictionary word",
+      "language": "da_DK",
+      "example": "adsplittelse"
+    },
+    "fales": {
+      "reason": "Trigger matches a dictionary word",
+      "language": "da_DK",
+      "example": "affales"
+    },
+    ":alot:": {
+      "reason": "Trigger matches a dictionary word",
+      "language": "da_DK",
+      "example": "Ba'alot"
+    },
+    "firend": {
+      "reason": "Trigger matches a dictionary word",
+      "language": "da_DK",
+      "example": "firende"
+    },
+    "levle": {
+      "reason": "Trigger matches a dictionary word",
+      "language": "da_DK",
+      "example": "Frøslevlejr"
+    },
+    "theese": {
+      "reason": "Trigger matches a dictionary word",
+      "language": "da_DK",
+      "example": "Midtheeses"
+    },
+    "likly": {
+      "reason": "Trigger matches a dictionary word",
+      "language": "da_DK",
+      "example": "kliklyd"
+    },
+    "pallete": {
+      "reason": "Trigger matches a dictionary word",
+      "language": "da_DK",
+      "example": "palletere"
+    },
+    "chnage": {
+      "reason": "Trigger matches a dictionary word",
+      "language": "da_DK",
+      "example": "Rechnagel"
+    },
+    "childen": {
+      "reason": "Trigger matches a dictionary word",
+      "language": "da_DK",
+      "example": "Schildenseje"
+    },
+    "singel": {
+      "reason": "Trigger matches a dictionary word",
+      "language": "da_DK",
+      "example": "Singella"
+    },
+    "strengh": {
+      "reason": "Trigger matches a dictionary word",
+      "language": "da_DK",
+      "example": "strenghed"
+    }
+  },
+  "sources": {
+    "da_DK.aff": {
+      "url": "https://raw.githubusercontent.com/LibreOffice/dictionaries/32b006a2c22a4ac7e8ed3f03346f7b3d85a970a4/da_DK/da_DK.aff",
+      "sha256": "ee4fe193d19b72aa64bc0d2b9bcdf44ee44f11d9b4e7dcf6da36fd0e91528561"
+    },
+    "da_DK.dic": {
+      "url": "https://raw.githubusercontent.com/LibreOffice/dictionaries/32b006a2c22a4ac7e8ed3f03346f7b3d85a970a4/da_DK/da_DK.dic",
+      "sha256": "298aabeca362ee2c71836c5c7748d22080a460bd7193e6fbd2471f27a70d0fd3"
+    },
+    "en_US.aff": {
+      "url": "https://raw.githubusercontent.com/LibreOffice/dictionaries/32b006a2c22a4ac7e8ed3f03346f7b3d85a970a4/en/en_US.aff",
+      "sha256": "e746c882dd6f303c2c46e7452804b9201115a6942cfeb15f18f8edf774d2e24e"
+    },
+    "en_US.dic": {
+      "url": "https://raw.githubusercontent.com/LibreOffice/dictionaries/32b006a2c22a4ac7e8ed3f03346f7b3d85a970a4/en/en_US.dic",
+      "sha256": "f0b1a234bd178bdd01875b2a392a9647f888b8fe879f79c52aae62c2759b3647"
+    },
+    "en_GB.aff": {
+      "url": "https://raw.githubusercontent.com/LibreOffice/dictionaries/32b006a2c22a4ac7e8ed3f03346f7b3d85a970a4/en/en_GB.aff",
+      "sha256": "0fd6ed120ef28957847d98ba5149b117e27116cf81b5aa36208453f6755a36fd"
+    },
+    "en_GB.dic": {
+      "url": "https://raw.githubusercontent.com/LibreOffice/dictionaries/32b006a2c22a4ac7e8ed3f03346f7b3d85a970a4/en/en_GB.dic",
+      "sha256": "04e90f34f5263bf26780e9c4a442e9ad16584e227af49ddd1b3b21b01df5b29c"
+    }
+  },
+  "dependency_versions": {
+    "spylls": "0.1.7",
+    "english-words": "2.0.2",
+    "pyahocorasick": "2.3.1"
+  },
+  "limitations": [
+    "Dictionary checks cannot cover every proper name, identifier, rare word, or newly formed Danish compound.",
+    "Personal candidates and the active source are checked; generated firmware and physical host behavior still need appropriate validation."
+  ]
+}

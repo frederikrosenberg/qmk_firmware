@@ -72,9 +72,17 @@ Flash both halves using the command above to install these changes. After flashi
 
 References: [QMK OS detection](https://docs.qmk.fm/features/os_detection), [Apple keyboard shortcuts](https://support.apple.com/en-us/102650), and [Unicode's Danish Mac keyboard data](https://github.com/unicode-org/cldr/blob/release-42/keyboards/osx/da-t-k0-osx.xml).
 
+## Autocorrect
+
+The active dictionary is `user/autocorrection_dict_extra.txt`; `user/autocorrect_data.h` is its generated firmware table. It preserves all 400 original corrections with their original matching behavior and adds 25 recurring personal typos, including `clearence`, `sholud`, and `hcanges`. Existing rules are intentionally retained based on their usefulness in everyday typing; bilingual screening applies to the new personal entries. The remaining one-off personal candidates are not enabled.
+
+The new personal rules pass checks against Danish, US English, UK English, and broader English word lists, including inflections and fragments around Danish letters. All personal corrections require whole-word matches. Findings for original rules are informational; those rules remain unchanged. Word lists cannot cover every name, identifier, rare word, or new Danish compound. See [the dictionary checks](tests/README.md#autocorrect-dictionary-checks) for regeneration and validation commands.
+
+Autocorrect is enabled or disabled with the upper-left `AC_TOGG` key on the NUM layer; QMK remembers its state. Flash both halves after regenerating/building the dictionary. Test a preserved correction such as `beacuse`, a new correction such as `sholud` followed by Space, and unchanged words such as `borde`, `broder`, `maraton`.
+
 ## Debugging missed keypresses
 
-Debugging is optional and is controlled by the flash script; the regular firmware does not include the console logging. Flash both halves with diagnostics enabled:
+Debugging is optional and is controlled by the flash script; the regular firmware does not include the console logging. Debug builds omit autocorrect to leave room for diagnostics, and the script prints a prominent notice. `AC_TOGG` cannot enable autocorrect in a debug build; reflash without `-Debug` to restore it. This also applies to direct builds using `KEYBOARD_DEBUG=1`. Flash both halves with diagnostics enabled:
 
 ```powershell
 .\flash.ps1 -Debug
