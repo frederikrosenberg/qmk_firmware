@@ -5,12 +5,15 @@ COMBO_ENABLE = yes
 OLED_ENABLE = no
 RGBLIGTH_ENABLE = no
 AUTOCORRECT_ENABLE = yes
+OS_DETECTION_ENABLE = yes
+KEY_OVERRIDE_ENABLE = yes
 
 LTO_ENABLE = yes
 
 INTROSPECTION_KEYMAP_C += user.c
 SRC += features/casemodes.c
 SRC += features/oneshot.c
+SRC += features/host_os.c
 
 VPATH += keyboards/gboards
 
@@ -37,3 +40,9 @@ BACKLIGHT_ENABLE                =   no
 MAGIC_ENABLE                    =   no
 
 AVR_USE_MINIMAL_PRINTF = yes
+
+ifeq ($(KEYBOARD_DEBUG), 1)
+    CONSOLE_ENABLE = yes
+    # Keep key/matrix diagnostics within rev1 flash capacity.
+    OPT_DEFS += -DKEYBOARD_DEBUG
+endif

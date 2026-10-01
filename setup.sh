@@ -1,8 +1,13 @@
 #!/bin/bash
 
 USER=frederikrosenberg
+QMK_FIRMWARE_DIR="${QMK_FIRMWARE_DIR:-$HOME/qmk_firmware}"
+KYRIA_REVISION="${KYRIA_REVISION:-rev1}"
 
 SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 
-ln -sf "$SCRIPT_DIR/user/" "$HOME/qmk_firmware/users/$USER"
-ln -sf "$SCRIPT_DIR/keyboards/splitkb/kyria/" "$HOME/qmk_firmware/keyboards/splitkb/kyria/keymaps/$USER"
+mkdir -p "$QMK_FIRMWARE_DIR/users"
+mkdir -p "$QMK_FIRMWARE_DIR/keyboards/splitkb/kyria/$KYRIA_REVISION/keymaps"
+
+ln -sfn "$SCRIPT_DIR/user/" "$QMK_FIRMWARE_DIR/users/$USER"
+ln -sfn "$SCRIPT_DIR/keyboards/splitkb/kyria/" "$QMK_FIRMWARE_DIR/keyboards/splitkb/kyria/$KYRIA_REVISION/keymaps/$USER"

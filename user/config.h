@@ -24,7 +24,6 @@
 #define COMBO_VARIABLE_LEN
 #define COMBO_TERM 50
 
-
 #ifdef OLED_ENABLE
   #define OLED_DISPLAY_128X64
   #define SPLIT_OLED_ENABLE
@@ -33,7 +32,6 @@
   #define OLED_FONT_H "font.h"
   #define OLED_FONT_END 255
   #define OLED_BRIGHTNESS 64
-  #define DEBUG_MATRIX_SCAN_RATE
   #define SPLIT_LAYER_STATE_ENABLE
 #endif
 

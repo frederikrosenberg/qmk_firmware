@@ -17,10 +17,17 @@
 #include "user.h"
 #include "features/casemodes.h"
 #include "features/oneshot.h"
+#include "features/host_os.h"
 
 #ifdef OLED_ENABLE
 #include "oled.h"
 #endif
+
+const key_override_t *key_overrides[] = {
+    &word_backspace_override,
+    &word_left_override,
+    &word_right_override,
+};
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_QWERTY] = LAYOUT_USER(
@@ -49,9 +56,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [_NUM] = LAYOUT_USER(
         //.--------+--------+--------+--------+--------.  .--------+--------+--------+--------+--------.
-           AC_TOGG, CASEWRD, WM_LEFT, WM_RGHT, XXXXXXX,    XXXXXXX,   DK_7,    DK_8,    DK_9,  TOGBASE,
+           AC_TOGG, CASEWRD, WM_LEFT, WM_RGHT, HOST_AUTO,   HOST_WIN,  DK_7,    DK_8,    DK_9,  TOGBASE,
         //|--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------|
-            OS_ALT,  OS_MOD,  OS_SFT,  OS_CTR, KC_RCTL,    XXXXXXX,   DK_4,    DK_5,    DK_6,    DK_0,
+            OS_ALT,  OS_MOD,  OS_SFT,  OS_CTR, KC_RCTL,      HOST_MAC,  DK_4,    DK_5,    DK_6,    DK_0,
         //|--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------|
              UNDO,    CUT,     COPY,   PASTE,  XXXXXXX,    XXXXXXX,   DK_1,    DK_2,    DK_3,  KC_PENT,
         //.--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------.
@@ -126,24 +133,54 @@ bool is_oneshot_ignored_key(uint16_t keycode) {
 
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+#ifdef KEYBOARD_DEBUG
+    uprintf("KEY row=%u col=%u kc=0x%04X %s\n", record->event.key.row, record->event.key.col, keycode, record->event.pressed ? "down" : "up");
+#endif
+
 #ifdef OLED_ENABLE
     if (record->event.pressed) {
         process_record_oled(keycode, record);
     }
 #endif
 
-    if (!process_mod_keys(keycode, record)) {
+    switch (keycode) {
+        case HOST_AUTO:
+        case HOST_WIN:
+        case HOST_MAC:
+            if (record->event.pressed) {
+                // Cancel queued/held one-shots before changing platform.
+                unregister_code(KC_LALT);
+                unregister_code(KC_LGUI);
+                unregister_code(KC_LSFT);
+                unregister_code(KC_LCTL);
+                os_alt_state = os_mod_state = os_sft_state = os_ctr_state = os_up_unqueued;
+                host_os_set_mode(keycode == HOST_AUTO ? HOST_MODE_AUTO : keycode == HOST_WIN ? HOST_MODE_WINDOWS : HOST_MODE_MAC);
+            }
+            return false;
+    }
+
+    bool continue_processing = process_app_switching(keycode, record);
+    // A NUM tap used for app switching consumes queued Shift like Tab.
+    uint16_t oneshot_keycode = keycode == NUM && !continue_processing ? KC_TAB : keycode;
+
+    if (continue_processing && !process_mod_keys(keycode, record)) {
         return false;
     }
 
-    if (!process_case_modes(keycode, record)) {
+    if (continue_processing && !process_case_modes(keycode, record)) {
         return false;
     }
 
-    update_oneshot(&os_sft_state, KC_LSFT, OS_SFT, keycode, record);
+    if (continue_processing) continue_processing = process_host_keys(keycode, record);
+
+    update_oneshot(&os_sft_state, KC_LSFT, OS_SFT, oneshot_keycode, record);
     update_oneshot(&os_ctr_state, KC_LCTL, OS_CTR, keycode, record);
     update_oneshot(&os_alt_state, KC_LALT, OS_ALT, keycode, record);
     update_oneshot(&os_mod_state, KC_LGUI, OS_MOD, keycode, record);
+
+    if (!continue_processing) {
+        return false;
+    }
 
     switch (keycode) {
         case CASEWRD:
@@ -187,8 +224,16 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 
 void keyboard_post_init_user(void) {
+    host_os_init();
+
     // Set default layer
     default_layer_set(1UL << base_layer);
+
+#ifdef KEYBOARD_DEBUG
+    debug_enable = true;
+    debug_matrix = true;
+    uprintf("Key diagnostics enabled: matrix changes and key events\n");
+#endif
 
 #ifdef RGBLIGHT_ENABLE
     //rgblight_enable_noeeprom(); // Enables RGB, without saving settings

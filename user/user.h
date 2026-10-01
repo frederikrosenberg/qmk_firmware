@@ -36,7 +36,10 @@ enum my_keycodes {
     OS_SFT,
     OS_CTR,
     TOGBASE,
-    QUOTE
+    QUOTE,
+    HOST_AUTO,
+    HOST_WIN,
+    HOST_MAC
 };
 
 #define NAV MO(_NAV)
