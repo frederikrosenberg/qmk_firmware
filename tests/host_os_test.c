@@ -319,6 +319,8 @@ int main(void) {
     expect_key(WM_LEFT, C(KC_LEFT));
     expect_key(DK_AT, A(KC_NUHS));
     expect_key(DK_DLR, S(A(KC_3)));
+    expect_key(DK_LABK, KC_GRV);
+    expect_key(DK_RABK, S(KC_GRV));
     expect_key(DK_LCBR, S(A(KC_8)));
     expect_key(DK_RCBR, S(A(KC_9)));
     expect_key(DK_LBRC, A(KC_8));
@@ -338,6 +340,8 @@ int main(void) {
     assert(writes == 1);
     expect_key(COPY, C(KC_C));
     expect_key(DK_AT, RALT(KC_2));
+    expect_key(DK_LABK, KC_NUBS);
+    expect_key(DK_RABK, S(KC_NUBS));
     expect_key(KC_HOME, KC_HOME);
 
     host_os_set_mode(HOST_MODE_MAC);

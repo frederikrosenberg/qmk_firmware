@@ -36,7 +36,7 @@ On Windows, Kyria rev1's Atmel DFU bootloader needs the **WinUSB** driver. If QM
 
 ## Mac and Windows
 
-The same firmware works on both systems. It automatically detects the USB host and adapts editing shortcuts and Danish symbols. Select **Danish** as the input source on both computers. On macOS, identify the external keyboard as **ISO (European)** if Keyboard Setup Assistant asks; choosing ANSI can swap `<` and `$`.
+The same firmware works on both systems. It automatically detects the USB host and adapts editing shortcuts and Danish symbols. Select **Danish** as the input source on both computers. The Mac angle-bracket mappings send the grave-position key (`KC_GRV`) and Shift with that key, matching the Danish mapping where the Windows ISO key produces `$` and `§`. macOS keyboard-type detection can swap these two positions; if angle brackets still produce `$` and `§` after flashing, use Keyboard Setup Assistant to select **ANSI** for this keyboard.
 
 Automatic detection uses QMK's USB fingerprinting and can guess incorrectly through some hubs or KVM switches. Hold the **NUM** thumb key to override it:
 
@@ -66,7 +66,7 @@ For app switching, **hold NAV and tap NUM** repeatedly to cycle through apps. Re
 
 Word editing works with the queued or held `OS_CTR` modifier and either physical Control key. In Mac mode, Control is suppressed only for these combinations; held keys repeat normally. Other Control combinations, including Ctrl+C in a terminal, keep their usual behavior. Chords that also include Alt/Option or Windows/Command are passed through unchanged.
 
-The symbol layer adapts `@`, `$`, `{}`, `[]`, `|`, backslash, and `~` to the Danish Mac layout. Accent keys retain their existing dead-key behavior. Mac desktop switching depends on the corresponding Mission Control shortcuts being enabled.
+The symbol layer adapts `@`, `$`, `<`, `>`, `{}`, `[]`, `|`, backslash, and `~` to the Danish Mac layout. Accent keys retain their existing dead-key behavior. Mac desktop switching depends on the corresponding Mission Control shortcuts being enabled.
 
 Flash both halves using the command above to install these changes. After flashing, check copy/paste, `@ $ { } [ ] | \ ~ < >`, and the Danish letter combos on each computer. If detection guesses wrong, select the explicit host mode and retry. Debug builds also log OS detection. OLED remains disabled to keep the rev1 firmware within its flash capacity.
 

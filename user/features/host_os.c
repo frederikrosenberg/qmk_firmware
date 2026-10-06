@@ -79,9 +79,10 @@ static void update_word_editing(void) {
     word_editing_enabled = enabled;
 }
 
-// Keep the Danish ISO input source selected on both computers.
+// Keep the Danish input source selected on both computers.
 // Mac Option mappings: Unicode CLDR keyboards/osx/da-t-k0-osx.xml.
 // Dollar uses Option+Shift+3 to avoid the ISO/ANSI grave-key difference.
+// Angle brackets use the grave position when Mac maps the ISO key to $/§.
 static const uint16_t PROGMEM host_keys[][2] = {
     {UNDO,    G(DK_Z)},
     {CUT,     G(DK_X)},
@@ -96,6 +97,8 @@ static const uint16_t PROGMEM host_keys[][2] = {
     {KC_END,  G(KC_RGHT)},
     {DK_AT,   A(DK_QUOT)},
     {DK_DLR,  S(A(DK_3))},
+    {DK_LABK, KC_GRV},
+    {DK_RABK, S(KC_GRV)},
     {DK_LCBR, S(A(DK_8))},
     {DK_RCBR, S(A(DK_9))},
     {DK_LBRC, A(DK_8)},
