@@ -4,30 +4,34 @@ These host-side tests exercise automatic detection callbacks, persistent overrid
 
 App-switching tests check NAV held with repeated NUM taps, backward switching with queued/held Shift, release ordering, cancellation and mode changes, individual thumb-layer keys, and unchanged Copy behavior.
 
+Autocorrect reset tests compile QMK's real autocorrect and key-override engines. They type enough text to rotate out the initial word boundary, delete a word, and immediately type `sholud `; the first replacement word must correct to `should` without a preceding Space. They also check `thier` corrects immediately before Space. They cover both host modes, left/right Control and Option, Command, Shift selection, queued/held Control, the dedicated word-delete key, and stale-prefix removal. Ordinary and Shift-only Backspace still edit one character. The API shim captures actual correction callbacks and models keyboard reports.
+
 From this repository in PowerShell, with Clang and the Visual Studio C++ tools installed:
 
 ```powershell
 $qmkTestRoot = Join-Path $HOME 'qmk_firmware'
 & 'C:\Program Files\LLVM\bin\clang.exe' -std=c11 -Wall -Wextra -Werror `
-    '-DQMK_KEYBOARD_H="qmk_test.h"' -Itests -Iuser `
+    -Wno-unused-parameter -D_CRT_SECURE_NO_WARNINGS `
+    '-DQMK_KEYBOARD_H="qmk_test.h"' -DAUTOCORRECT_ENABLE -DNO_ACTION_TAPPING -Itests -Iuser `
     "-I$qmkTestRoot/quantum/process_keycode" `
     "-I$qmkTestRoot/quantum" "-I$qmkTestRoot/quantum/keymap_extras" `
     "-I$qmkTestRoot/quantum/sequencer" "-I$qmkTestRoot/tmk_core/protocol" `
     tests/host_os_test.c user/features/host_os.c user/features/oneshot.c `
     "$qmkTestRoot/quantum/process_keycode/process_key_override.c" `
+    "$qmkTestRoot/quantum/process_keycode/process_autocorrect.c" `
     -o "$env:TEMP/qmk-host-os-test.exe"
 if ($LASTEXITCODE -ne 0) { throw 'Test compilation failed' }
 & "$env:TEMP/qmk-host-os-test.exe"
 if ($LASTEXITCODE -ne 0) { throw 'Host OS tests failed' }
 ```
 
-On macOS/Linux, the same sources and include paths work with `cc` or `clang`; keep the quoted header definition and select a local executable output path.
+On macOS/Linux, the same sources and include paths work with `cc` or `clang`; keep the quoted header definition and select a local executable output path. `-Wno-unused-parameter` accommodates unused parameters in upstream QMK handlers; `_CRT_SECURE_NO_WARNINGS` disables Windows CRT deprecation warnings for QMK's string helpers. Repeat with `-DQWERTY_ENABLE` to exercise the alternate dictionary.
 
 Also compile the Kyria firmware as described in the main README. USB fingerprint accuracy and host input-source settings require checking on the physical keyboard with both computers.
 
 ## Autocorrect dictionary checks
 
-The complete source is `user/autocorrection_dict_extra.txt`, compiled into `user/autocorrect_data_full.h`. It preserves all 400 original corrections plus 26 personal corrections. The default OLED firmware uses the reduced 171-entry table; QWERTY-enabled builds use 150 entries. Both retain all 26 personal rules. `user/autocorrect_data.h` selects the appropriate generated table. Other personal candidates remain inactive. Check the master source and personal candidates with:
+The complete source is `user/autocorrection_dict_extra.txt`, compiled into `user/autocorrect_data_full.h`. It preserves all 400 original corrections plus 26 personal corrections. The default OLED firmware uses the reduced 157-entry table; QWERTY-enabled builds use 135 entries. Both retain all 26 personal rules. `user/autocorrect_data.h` selects the appropriate generated table. Other personal candidates remain inactive. Check the master source and personal candidates with:
 
 ```powershell
 uv run --with spylls==0.1.7 --with english-words==2.0.2 --with pyahocorasick==2.3.1 `
@@ -47,9 +51,9 @@ Regenerate the full table and the reduced profiles after editing the master sour
 uvx --with english-words==2.0.2 qmk generate-autocorrect-data `
     user/autocorrection_dict_extra.txt -o user/autocorrect_data_full.h
 if ($LASTEXITCODE -ne 0) { throw 'Autocorrect generation failed' }
-uv run tests/select_autocorrect.py --max-bytes 2588
+uv run tests/select_autocorrect.py --max-bytes 2350
 if ($LASTEXITCODE -ne 0) { throw 'Reduced dictionary generation failed' }
-uv run tests/select_autocorrect.py --max-bytes 2227 --profile qwerty
+uv run tests/select_autocorrect.py --max-bytes 2000 --profile qwerty
 if ($LASTEXITCODE -ne 0) { throw 'QWERTY dictionary generation failed' }
 foreach ($dictionaryProfile in @('full', 'reduced', 'qwerty')) {
     uv run tests/check_autocorrect_data.py --profile $dictionaryProfile

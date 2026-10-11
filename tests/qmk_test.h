@@ -9,6 +9,8 @@
 #define PROGMEM
 #define ARRAY_SIZE(array) (sizeof(array) / sizeof((array)[0]))
 #define pgm_read_word(address) (*(address))
+#define pgm_read_byte(address) (*(address))
+#define strcpy_P strcpy
 
 typedef uint8_t layer_state_t;
 typedef struct { uint8_t row, col; } keypos_t;
@@ -28,6 +30,8 @@ uint8_t get_mods(void);
 void set_mods(uint8_t mods);
 uint8_t get_oneshot_mods(void);
 uint8_t get_oneshot_locked_mods(void);
+void tap_code(uint8_t keycode);
+void send_string_P(const char *string);
 void add_key(uint8_t keycode);
 void del_key(uint8_t keycode);
 void send_keyboard_report(void);

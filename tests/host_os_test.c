@@ -1,8 +1,11 @@
 #include <assert.h>
 #include <stdio.h>
+#include <string.h>
+#include "keycode_config.h"
 #include "features/host_os.h"
 #include "features/oneshot.h"
 #include "os_detection.h"
+#include "process_autocorrect.h"
 
 static uint32_t eeprom;
 static unsigned writes;
@@ -12,6 +15,19 @@ static bool key_down;
 static uint8_t real_mods, weak_mods, suppressed_mods, override_mods, report_mods;
 static bool report_keys[256];
 static uint32_t now;
+static unsigned corrections;
+static char last_typo[32], last_correct[32];
+keymap_config_t keymap_config = {.autocorrect_enable = true};
+void eeconfig_update_keymap(keymap_config_t *config) { (void)config; }
+void tap_code(uint8_t keycode) { (void)keycode; }
+void send_string_P(const char *string) { (void)string; }
+bool apply_autocorrect(uint8_t backspaces, const char *changes, char *typo, char *correct) {
+    (void)backspaces; (void)changes;
+    ++corrections;
+    strcpy(last_typo, typo);
+    strcpy(last_correct, correct);
+    return false;
+}
 static const key_override_t *overrides[] = {&word_backspace_override, &word_left_override, &word_right_override};
 
 uint32_t eeconfig_read_user(void) { return eeprom; }
@@ -81,10 +97,99 @@ static void expect_key(uint16_t source, uint16_t output) {
 // Match the userspace/QMK ordering: release queued one-shots before overrides.
 static void word_event(uint16_t keycode, bool pressed, oneshot_state *ctrl, oneshot_state *shift) {
     keyrecord_t record = {.event.pressed = pressed};
+    bool normal = process_host_keys(keycode, &record);
     if (ctrl) update_oneshot(ctrl, KC_LCTL, OS_CTR, keycode, &record);
     if (shift) update_oneshot(shift, KC_LSFT, OS_SFT, keycode, &record);
-    if (process_key_override(keycode, &record) && keycode < 256) {
+    if (normal && process_key_override(keycode, &record) && process_autocorrect(keycode, &record) && keycode < 256) {
         if (pressed) register_code(keycode); else unregister_code(keycode);
+    }
+}
+
+static void type_text(const char *text) {
+    for (; *text; ++text) {
+        uint16_t keycode = *text == ' ' ? KC_SPC : KC_A + *text - 'a';
+        word_event(keycode, true, NULL, NULL);
+        word_event(keycode, false, NULL, NULL);
+    }
+}
+
+static void prepare_deleted_word(void) {
+    set_mods(0);
+    word_event(KC_ENT, true, NULL, NULL);
+    word_event(KC_ENT, false, NULL, NULL);
+    // Rotate the original leading boundary out of the real QMK buffer.
+    type_text("abcdefghijklmnopqrstuvwxyzhello");
+}
+
+static void expect_first_word_correction(void) {
+    unsigned before = corrections;
+    type_text("sholud ");
+    assert(corrections == before + 1);
+    assert(strcmp(last_typo, "sholud") == 0);
+    assert(strcmp(last_correct, "should") == 0);
+}
+
+static void test_autocorrect_reset(void) {
+    const host_mode_t modes[] = {HOST_MODE_WINDOWS, HOST_MODE_MAC};
+    for (unsigned i = 0; i < ARRAY_SIZE(modes); ++i) {
+        host_os_set_mode(modes[i]);
+        const uint8_t mods[] = {MOD_BIT(KC_LCTL), MOD_BIT(KC_RCTL), MOD_BIT(KC_LALT), MOD_BIT(KC_RALT), MOD_BIT(KC_LGUI), MOD_BIT(KC_LCTL) | MOD_BIT(KC_LSFT)};
+        for (unsigned j = 0; j < ARRAY_SIZE(mods); ++j) {
+            prepare_deleted_word();
+            set_mods(mods[j]);
+            word_event(KC_BSPC, true, NULL, NULL);
+            word_event(KC_BSPC, false, NULL, NULL);
+            set_mods(0);
+            expect_first_word_correction();
+            prepare_deleted_word();
+            set_mods(mods[j]);
+            word_event(KC_BSPC, true, NULL, NULL);
+            word_event(KC_BSPC, false, NULL, NULL);
+            set_mods(0);
+            unsigned before = corrections;
+            type_text("thier");
+            assert(corrections == before + 1);
+            assert(strcmp(last_correct, "their") == 0);
+        }
+        prepare_deleted_word();
+        expect_key(C_BSPC, modes[i] == HOST_MODE_MAC ? A(KC_BSPC) : C_BSPC);
+        expect_first_word_correction();
+
+        for (unsigned held = 0; held < 2; ++held) {
+            prepare_deleted_word();
+            oneshot_state ctrl = os_up_unqueued;
+            word_event(OS_CTR, true, &ctrl, NULL);
+            if (!held) word_event(OS_CTR, false, &ctrl, NULL);
+            word_event(KC_BSPC, true, &ctrl, NULL);
+            word_event(KC_BSPC, false, &ctrl, NULL);
+            if (held) word_event(OS_CTR, false, &ctrl, NULL);
+            assert(ctrl == os_up_unqueued && get_mods() == 0);
+            expect_first_word_correction();
+        }
+
+        // Deletion cannot leave a prefix that combines with the new word.
+        prepare_deleted_word();
+        type_text("sho");
+        set_mods(MOD_BIT(KC_LCTL));
+        word_event(KC_BSPC, true, NULL, NULL);
+        word_event(KC_BSPC, false, NULL, NULL);
+        set_mods(0);
+        unsigned before = corrections;
+        type_text("lud ");
+        assert(corrections == before);
+
+        // Ordinary and Shift-only Backspace still edit one character.
+        for (unsigned shifted = 0; shifted < 2; ++shifted) {
+            prepare_deleted_word();
+            type_text(" sholux");
+            set_mods(shifted ? MOD_BIT(KC_LSFT) : 0);
+            word_event(KC_BSPC, true, NULL, NULL);
+            word_event(KC_BSPC, false, NULL, NULL);
+            set_mods(0);
+            before = corrections;
+            type_text("d ");
+            assert(corrections == before + 1);
+        }
     }
 }
 
@@ -393,6 +498,7 @@ int main(void) {
     assert(process_host_keys(DK_OSTR, &record));
     test_word_editing();
     test_app_switching();
+    test_autocorrect_reset();
     puts("Host OS tests passed");
     return 0;
 }

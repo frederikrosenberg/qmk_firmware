@@ -14,7 +14,7 @@
 #
 #
 # Reduced OLED dictionary: all recurring personal rules, then common words.
-# 26 personal + 145 original rules; regenerate with tests/select_autocorrect.py.
+# 26 personal + 131 original rules; regenerate with tests/select_autocorrect.py.
 
 :clearence: -> clearance
 :sholud: -> should
@@ -173,17 +173,3 @@ bussiness     -> business
 calander      -> calendar
 commitee      -> committee
 comittee      -> committee
-competance    -> competence
-competant     -> competent
-concensus     -> consensus
-cognizent     -> cognizant
-copywrite:    -> copyright
-choosen       -> chosen
-collegue      -> colleague
-excercise     -> exercise
-:grammer      -> grammar
-:guage        -> gauge
-govement      -> government
-govenment     -> government
-goverment     -> government
-governmnet    -> government

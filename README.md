@@ -86,21 +86,23 @@ Measured with the local QMK checkout and AVR GCC 15.2.0 for `splitkb/kyria/rev1`
 | Optimized Canary build, full 425-entry dictionary (before logo text removal/Mac legends) | 32,158 | 3,486 bytes over |
 | Previous optimized Canary build, 175-entry dictionary and all display functions | 28,658 | 14 bytes free |
 | Previous optimized QWERTY/Canary build, 154-entry dictionary and all display functions | 28,660 | 12 bytes free |
-| Canary build with delayed symbol guide, 171-entry dictionary and all display functions | 28,646 | 26 bytes free |
-| QWERTY/Canary build with delayed symbol guide, 150-entry dictionary and all display functions | 28,652 | 20 bytes free |
+| Previous Canary build with delayed symbol guide, 171-entry dictionary and all display functions | 28,646 | 26 bytes free |
+| Previous QWERTY/Canary build with delayed symbol guide, 150-entry dictionary and all display functions | 28,652 | 20 bytes free |
+| Canary build with word-delete autocorrect boundary reset, 157-entry dictionary and all display functions | 28,636 | 36 bytes free |
+| QWERTY/Canary build with word-delete autocorrect boundary reset, 135-entry dictionary and all display functions | 28,620 | 52 bytes free |
 | Optimized Canary diagnostic build, autocorrect omitted, all display functions | 27,048 | 1,624 bytes free |
 
 The optimized build removes encoder support (this keyboard has no knobs), QWERTY by default, QMK's unused native OSM/OSL system, unused/duplicate font glyphs, and duplicate animation pixel rows. The compact font is 906 bytes, saving 630 bytes versus the original font while adding Mac modifier legends. Existing glyphs and animation frames preserve their original pixels. Your custom `OS_*` one-shot modifiers, Caps Word/snake case, Mac/Windows detection, word-editing overrides, combos, and media keys remain enabled. RGB, console, command mode, and other unused features are disabled; WPM and deferred execution remain enabled for the animation. LTO is already enabled. See [QMK's AVR size guidance](https://docs.qmk.fm/squeezing_avr).
 
 The OS row shows the effective Mac/Windows mode, including manual overrides and the Windows fallback for unknown hosts. It replaces the layout row when QWERTY is disabled; QWERTY builds show OS on the spare row below the title. The modifier row follows that same mode. Mac mode shows Control (⌃), Option (⌥), outlined Shift (⇧), and Command (⌘), in [Apple's modifier order](https://developer.apple.com/design/human-interface-guidelines/keyboards). Windows mode retains its previous legends and order. Both left/right modifiers and your custom queued `OS_*` modifiers highlight the matching legend.
 
-`QWERTY_ENABLE=no` is the default. Use `./flash.ps1 -Qwerty` or add `-e QWERTY_ENABLE=yes` to `qmk compile` to restore its keymap, NUM top-right base-layout toggle, and display labels. That flag automatically selects a smaller 150-entry dictionary. Both profiles retain all 26 personal rules. Build sizes depend on the QMK revision and compiler; always check the size before flashing, since the default build has very little remaining headroom.
+`QWERTY_ENABLE=no` is the default. Use `./flash.ps1 -Qwerty` or add `-e QWERTY_ENABLE=yes` to `qmk compile` to restore its keymap, NUM top-right base-layout toggle, and display labels. That flag automatically selects a smaller 135-entry dictionary. Both profiles retain all 26 personal rules. Build sizes depend on the QMK revision and compiler; always check the size before flashing, since the default build has very little remaining headroom.
 
 `user/font_source.h` is the editable glyph source; firmware uses the generated compact `user/font.h`. Source slots 0x80–0x83 contain the Mac Command and outlined Shift symbols. After changing font glyphs or adding `OLED_GLYPH_*` references, run `uv run tests/compact_oled_font.py`, then `uv run tests/compact_oled_font.py --check`.
 
 ## Autocorrect
 
-Autocorrect is enabled in the default firmware. `user/autocorrection_dict_reduced.txt` includes all 26 personal corrections plus the first 145 original rules, which prioritize common words. Its 171 entries occupy a 2,581-byte trie. The QWERTY profile uses `user/autocorrection_dict_qwerty.txt` with 150 entries (26 personal + 124 original), a 2,226-byte trie. One-off personal candidates stay excluded. To build without autocorrect, pass `-e AUTOCORRECT_ENABLE=no`.
+Autocorrect is enabled in the default firmware. `user/autocorrection_dict_reduced.txt` includes all 26 personal corrections plus the first 131 original rules, which prioritize common words. Its 157 entries occupy a 2,348-byte trie. The QWERTY profile uses `user/autocorrection_dict_qwerty.txt` with 135 entries (26 personal + 109 original), a 1,986-byte trie. The reduced profiles reserve space for restarting autocorrect at a word boundary after word deletion; the full dictionary preserves every rule. One-off personal candidates stay excluded. To build without autocorrect, pass `-e AUTOCORRECT_ENABLE=no`.
 
 `user/autocorrect_data.h` selects the generated reduced, QWERTY, or full table. The complete 426-entry dictionary remains preserved in `user/autocorrection_dict_extra.txt` and `user/autocorrect_data_full.h`; build it with displays disabled:
 
@@ -113,6 +115,8 @@ The full source preserves all 400 original corrections with their original match
 The new personal rules pass checks against Danish, US English, UK English, and broader English word lists, including inflections and fragments around Danish letters. All personal corrections require whole-word matches. Findings for original rules are informational; those rules remain unchanged. Word lists cannot cover every name, identifier, rare word, or new Danish compound. See [the dictionary checks](tests/README.md#autocorrect-dictionary-checks) for regeneration and validation commands.
 
 When compiled with autocorrect enabled, the upper-left `AC_TOGG` key on the NUM layer toggles it; QMK remembers its state. Flash both halves after regenerating/building the dictionary. Test a preserved correction such as `beacuse`, a new correction such as `sholud` followed by Space, and unchanged words such as `borde`, `broder`, `maraton`.
+
+Ctrl+Backspace (mapped to Option+Backspace on Mac), direct Option+Backspace, and Command+Backspace start a new word for autocorrect. Before processing the first replacement letter, the keymap calls QMK's native Enter handler internally to clear stale history and establish a word boundary; no Enter or Space is sent to the host. This includes queued/held `OS_CTR`, either physical Control key, and the `C_BSPC` keycode. Plain Backspace removes one character from that history. The first replacement word can correct without a preceding Space: `thier` corrects immediately, while whole-word rules such as `sholud` correct when completed with Space, as usual. Autocorrect remains enabled.
 
 ## Debugging missed keypresses
 

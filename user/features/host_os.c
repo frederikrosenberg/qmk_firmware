@@ -1,6 +1,23 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 #include "host_os.h"
 #include "os_detection.h"
+#ifdef AUTOCORRECT_ENABLE
+#include "process_autocorrect.h"
+static bool autocorrect_reset_pending;
+
+bool process_autocorrect_user(uint16_t *keycode, keyrecord_t *record, uint8_t *typo_buffer_size, uint8_t *mods) {
+    bool process = process_autocorrect_default_handler(keycode, record, typo_buffer_size, mods);
+    if (autocorrect_reset_pending && process && *keycode >= KC_A && *keycode <= KC_Z) {
+        autocorrect_reset_pending = false;
+        // Seed a boundary before the first new character. An empty buffer
+        // cannot match dictionary entries that require a leading boundary.
+        // QMK's Enter handler clears history and seeds Space. This internal
+        // call sends no Enter or Space key to the host.
+        process_autocorrect(KC_ENT, record);
+    }
+    return process;
+}
+#endif
 
 // Only explicit overrides are saved; detected hosts never write to EEPROM.
 #define HOST_CONFIG_SIGNATURE 0x484F5300UL
@@ -149,6 +166,13 @@ bool process_detected_host_os_user(os_variant_t detected_os) {
 }
 
 bool process_host_keys(uint16_t keycode, keyrecord_t *record) {
+#ifdef AUTOCORRECT_ENABLE
+    // Host mappings and Mac key overrides can consume word deletion before
+    // QMK's autocorrect handler sees it. Reset before it processes another key.
+    if (record->event.pressed && (keycode == C_BSPC || (keycode == KC_BSPC && (get_mods() & (MOD_MASK_CTRL | MOD_MASK_ALT | MOD_MASK_GUI))))) {
+        autocorrect_reset_pending = true;
+    }
+#endif
     for (uint8_t i = 0; i < ARRAY_SIZE(host_keys); ++i) {
         if (keycode != pgm_read_word(&host_keys[i][0])) {
             continue;

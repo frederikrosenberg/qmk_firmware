@@ -14,7 +14,7 @@
 #
 #
 # Reduced OLED dictionary: all recurring personal rules, then common words.
-# 26 personal + 124 original rules; regenerate with tests/select_autocorrect.py.
+# 26 personal + 109 original rules; regenerate with tests/select_autocorrect.py.
 
 :clearence: -> clearance
 :sholud: -> should
@@ -151,18 +151,3 @@ toghether     -> together
 unkown        -> unknown
 unqiue        -> unique
 widht         -> width
-aberation     -> aberration
-accross       -> across
-adviced       -> advised
-aledge        -> allege
-alledge       -> allege
-amature       -> amateur
-anomolous     -> anomalous
-anomoly       -> anomaly
-aparent       -> apparent
-aparrent      -> apparent
-apparant      -> apparent
-apparrent     -> apparent
-asthetic      -> aesthetic
-auxilary      -> auxiliary
-auxillary     -> auxiliary
