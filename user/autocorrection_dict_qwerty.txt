@@ -1,0 +1,172 @@
+# Copyright 2021 Google LLC
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+#
+# Reduced OLED dictionary: all recurring personal rules, then common words.
+# 25 personal + 129 original rules; regenerate with tests/select_autocorrect.py.
+
+:clearence: -> clearance
+:sholud: -> should
+:hte: -> the
+:plesae: -> please
+:mintues: -> minutes
+:hcanges: -> changes
+:cretae: -> create
+:mandory: -> mandatory
+:occipied: -> occupied
+:plese: -> please
+:schenen: -> schengen
+:assigment: -> assignment
+:authoritive: -> authoritative
+:branc: -> branch
+:chagnes: -> changes
+:desgin: -> design
+:filghts: -> flights
+:flie: -> file
+:hvae: -> have
+:insigts: -> insights
+:remaing: -> remaining
+:remakrs: -> remarks
+:ruway: -> runway
+:someting: -> something
+:tihs: -> this
+:htere        -> there
+abbout        -> about
+abotu         -> about
+baout         -> about
+:theri        -> their
+:thier        -> their
+:owudl        -> would
+woudl         -> would
+peaple        -> people
+peolpe        -> people
+peopel        -> people
+poeple        -> people
+poeople       -> people
+:hwihc        -> which
+whcih         -> which
+whihc         -> which
+whlch         -> which
+wihch         -> which
+coudl         -> could
+:htikn        -> think
+:htink        -> think
+thikn         -> think
+thiunk        -> think
+tihkn         -> think
+:olther       -> other
+:otehr        -> other
+baceause      -> because
+beacuse       -> because
+becasue       -> because
+beccause      -> because
+becouse       -> because
+becuase       -> because
+theese        -> these
+:goign        -> going
+:gonig        -> going
+:yaers        -> years
+:yeasr        -> years
+:thsoe        -> those
+shoudl        -> should
+raelly        -> really
+realy         -> really
+relaly        -> really
+bedore        -> before
+befoer        -> before
+littel        -> little
+beeing        -> being
+:hwile        -> while
+aroud         -> around
+arround       -> around
+arund         -> around
+thign         -> thing
+thigsn        -> things
+thnigs        -> things
+anohter       -> another
+beteen        -> between
+beween        -> between
+bewteen       -> between
+:eveyr        -> every
+:graet        -> great
+:agian        -> again
+:sicne        -> since
+alwasy        -> always
+alwyas        -> always
+throught      -> thought
+:acheiv       -> achiev
+almsot        -> almost
+alomst        -> almost
+chnage        -> change
+chekc         -> check
+childen       -> children
+claer         -> clear
+comapny       -> company
+contian       -> contain
+elasped       -> elapsed
+feild         -> field
+fitler        -> filter
+firts         -> first
+follwo        -> follow
+:foudn        -> found
+frequecy      -> frequency
+firend        -> friend
+freind        -> friend
+heigth        -> height
+iamge         -> image
+inital        -> initial
+intput        -> input
+laguage       -> language
+lenght        -> length
+levle         -> level
+libary        -> library
+:moeny        -> money
+mysefl        -> myself
+ouptut        -> output
+ouput         -> output
+probaly       -> probably
+probelm       -> problem
+recrod        -> record
+reponse       -> response
+reprot        -> report
+singel        -> single
+stregth       -> strength
+strengh       -> strength
+tkaes         -> takes
+therfore      -> therefore
+todya         -> today
+toghether     -> together
+unkown        -> unknown
+unqiue        -> unique
+widht         -> width
+aberation     -> aberration
+accross       -> across
+adviced       -> advised
+aledge        -> allege
+alledge       -> allege
+amature       -> amateur
+anomolous     -> anomalous
+anomoly       -> anomaly
+aparent       -> apparent
+aparrent      -> apparent
+apparant      -> apparent
+apparrent     -> apparent
+asthetic      -> aesthetic
+auxilary      -> auxiliary
+auxillary     -> auxiliary
+auxilliary    -> auxiliary
+bankrupcy     -> bankruptcy
+busness       -> business
+bussiness     -> business
+calander      -> calendar

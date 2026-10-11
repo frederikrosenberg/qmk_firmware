@@ -38,7 +38,11 @@
 #define DEFAULT_XCASE_SEPARATOR KC_UNDS
 #endif
 
+#ifdef NO_ACTION_ONESHOT
+#define IS_OSM(keycode) false
+#else
 #define IS_OSM(keycode) (keycode >= QK_ONE_SHOT_MOD && keycode <= QK_ONE_SHOT_MOD_MAX)
+#endif
 
 // bool to keep track of the caps word state
 static bool caps_word_on = false;

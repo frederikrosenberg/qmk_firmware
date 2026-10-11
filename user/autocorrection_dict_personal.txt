@@ -23,9 +23,9 @@
 # The active dictionary is now audited too; most original rules are retained.
 #
 # The 25 recurring corrections below are included in the active source,
-# user/autocorrection_dict_extra.txt, and its generated autocorrect_data.h.
+# user/autocorrection_dict_extra.txt and all reduced firmware profiles.
 # The one-off candidates remain inactive. Regenerate the active header after
-# changing the active source; editing this candidate file alone has no effect.
+# changing the master source; editing this candidate file alone has no effect.
 #
 
 # Recurring candidates not already listed in the existing dictionary

@@ -17,6 +17,8 @@
 #pragma once
 
 #define LAYER_STATE_8BIT
+// OS_* keys use our custom modifier state machine, not QMK OSM/OSL.
+#define NO_ACTION_ONESHOT
 
 #define TAPPING_TERM 140
 #define TAPPING_FORCE_HOLD_PER_KEY
@@ -30,7 +32,9 @@
   #define OLED_TIMEOUT 30000
   #define OLED_UPDATE_INTERVAL 100
   #define OLED_FONT_H "font.h"
-  #define OLED_FONT_END 255
+  #include "oled_glyphs.h"
+  #define OLED_FONT_START 32
+  #define OLED_FONT_END OLED_COMPACT_FONT_END
   #define OLED_BRIGHTNESS 64
   #define SPLIT_LAYER_STATE_ENABLE
 #endif

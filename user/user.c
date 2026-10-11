@@ -30,6 +30,7 @@ const key_override_t *key_overrides[] = {
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
+#ifdef QWERTY_ENABLE
     [_QWERTY] = LAYOUT_USER(
         //.--------+--------+--------+--------+--------.  .--------+--------+--------+--------+--------.
              DK_Q,    DK_W,    DK_E,    DK_R,    DK_T,       DK_Y,    DK_U,    DK_I,    DK_O,    DK_P,
@@ -42,6 +43,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         //                           .--------+--------|  |--------+--------.
     ),
 
+#endif
     [_CANARY] = LAYOUT_USER(
         //.--------+--------+--------+--------+--------.  .--------+--------+--------+--------+--------.
              DK_W,    DK_L,    DK_Y,    DK_P,    DK_B,       DK_Z,    DK_F,    DK_O,    DK_U,    QUOTE,
@@ -56,7 +58,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [_NUM] = LAYOUT_USER(
         //.--------+--------+--------+--------+--------.  .--------+--------+--------+--------+--------.
-           AC_TOGG, CASEWRD, WM_LEFT, WM_RGHT, HOST_AUTO,   HOST_WIN,  DK_7,    DK_8,    DK_9,  TOGBASE,
+           AC_TOGG, CASEWRD, WM_LEFT, WM_RGHT, HOST_AUTO,   HOST_WIN,  DK_7,    DK_8,    DK_9,  BASE_LAYOUT_TOGGLE,
         //|--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------|
             OS_ALT,  OS_MOD,  OS_SFT,  OS_CTR, KC_RCTL,      HOST_MAC,  DK_4,    DK_5,    DK_6,    DK_0,
         //|--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------|
@@ -207,6 +209,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 }
             }
             return false;
+#ifdef QWERTY_ENABLE
         case TOGBASE:
             if (record->event.pressed) {
                 if (base_layer == _CANARY) {
@@ -217,6 +220,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
                 default_layer_set(1UL << base_layer);
             }
+#endif
         default:
             return true;
     }

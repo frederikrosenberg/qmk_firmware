@@ -1,10 +1,15 @@
 """Check the generated QMK trie, personal corrections, and protected words."""
 
+import argparse
 import re
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-header = (ROOT / "user/autocorrect_data.h").read_text(encoding="utf-8")
+parser = argparse.ArgumentParser(description=__doc__)
+parser.add_argument("--profile", choices=["full", "reduced", "qwerty"], default="full")
+args = parser.parse_args()
+header = (ROOT / f"user/autocorrect_data_{args.profile}.h").read_text(encoding="utf-8")
+dictionary = "extra" if args.profile == "full" else args.profile
 array = re.search(r"autocorrect_data\[DICTIONARY_SIZE\].*?=\s*\{(.*?)\};", header, re.S)[1]
 DATA = [int(value.strip(), 0) for value in array.split(",") if value.strip()]
 MAX_LENGTH = int(re.search(r"#define AUTOCORRECT_MAX_LENGTH (\d+)", header)[1])
@@ -68,13 +73,15 @@ for word in [
     assert stream(word) is None, word
 
 # Common old corrections must still work, and safe partial rules are preserved.
-for typo in ("beacuse", "becuase", "woudl", "peopel", "whcih", "recieve"):
+for typo in ("beacuse", "becuase", "woudl", "peopel", "whcih"):
     assert stream(typo) is not None, typo
+if args.profile == "full":
+    assert stream("recieve") is not None
 
 # Verify each encoded rule directly. Some longstanding partial rules shadow
 # longer legacy rules during typing; preserving that behavior is intentional.
 active_count = 0
-for line in (ROOT / "user/autocorrection_dict_extra.txt").read_text(encoding="utf-8").splitlines():
+for line in (ROOT / f"user/autocorrection_dict_{dictionary}.txt").read_text(encoding="utf-8").splitlines():
     if "->" not in line or line.lstrip().startswith("#"):
         continue
     trigger, correction = (part.strip() for part in line.split("->"))

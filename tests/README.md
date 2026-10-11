@@ -27,7 +27,7 @@ Also compile the Kyria firmware as described in the main README. USB fingerprint
 
 ## Autocorrect dictionary checks
 
-The active source is `user/autocorrection_dict_extra.txt`, compiled into `user/autocorrect_data.h`. It includes all 400 original corrections with their original matching behavior plus the 25 recurring personal corrections. The other personal candidates remain inactive. Check both sources with:
+The complete source is `user/autocorrection_dict_extra.txt`, compiled into `user/autocorrect_data_full.h`. It preserves all 400 original corrections plus the 25 recurring personal corrections. The default OLED firmware uses the reduced 175-entry table; QWERTY-enabled builds use 154 entries. Both retain all 25 personal rules. `user/autocorrect_data.h` selects the appropriate generated table. Other personal candidates remain inactive. Check the master source and personal candidates with:
 
 ```powershell
 uv run --with spylls==0.1.7 --with english-words==2.0.2 --with pyahocorasick==2.3.1 `
@@ -39,16 +39,22 @@ if ($LASTEXITCODE -ne 0) { throw 'Autocorrect safety checks failed' }
 
 The checker downloads a pinned revision of LibreOffice's Danish, US English, and UK English Hunspell dictionaries and verifies their SHA-256 hashes. For personal candidates, it rejects valid dictionary words, inflections and recognized compounds, extra repeated-letter corrections, double-letter-count-only corrections, missing-i-only corrections, and conflicting rules. All existing generic corrections are intentionally preserved at the user's request; findings for those rules are informational and do not fail the check. The active trigger patterns are checked against English word lists and overgenerated Danish/English affix forms, including ASCII fragments around non-ASCII letters: QMK can treat Danish letters as boundaries, so whole-word markers alone are insufficient protection.
 
-All personal entries require both word boundaries. No original rules are removed or narrowed. Dictionary checking cannot cover every name, identifier, rare word or newly formed Danish compound. Test Danish and English typing on the physical keyboard after flashing.
+All personal entries require both word boundaries. The master dictionary preserves every original rule; the reduced profiles retain subsets without narrowing their patterns. Dictionary checking cannot cover every name, identifier, rare word or newly formed Danish compound. Test Danish and English typing on the physical keyboard after flashing.
 
-Regenerate and check the serialized dictionary after editing the active source:
+Regenerate the full table and the reduced profiles after editing the master source. The reduced byte budgets come from actual firmware measurements and must be remeasured after firmware/toolchain changes:
 
 ```powershell
 uvx --with english-words==2.0.2 qmk generate-autocorrect-data `
-    user/autocorrection_dict_extra.txt -o user/autocorrect_data.h
+    user/autocorrection_dict_extra.txt -o user/autocorrect_data_full.h
 if ($LASTEXITCODE -ne 0) { throw 'Autocorrect generation failed' }
-uv run tests/check_autocorrect_data.py
-if ($LASTEXITCODE -ne 0) { throw 'Generated trie checks failed' }
+uv run tests/select_autocorrect.py --max-bytes 2668
+if ($LASTEXITCODE -ne 0) { throw 'Reduced dictionary generation failed' }
+uv run tests/select_autocorrect.py --max-bytes 2307 --profile qwerty
+if ($LASTEXITCODE -ne 0) { throw 'QWERTY dictionary generation failed' }
+foreach ($dictionaryProfile in @('full', 'reduced', 'qwerty')) {
+    uv run tests/check_autocorrect_data.py --profile $dictionaryProfile
+    if ($LASTEXITCODE -ne 0) { throw "Generated trie checks failed: $dictionaryProfile" }
+}
 ```
 
-The generated-trie checks exercise all 25 personal replacements, preserved common generic corrections, and selected English/Danish words protected by the new entries. They also verify every encoded rule directly, since some original partial rules intentionally shadow longer rules during typing. The active dictionary has 425 entries. The bilingual audit reports potential matches in the original rules for information; only personal-candidate problems fail validation.
+The generated-trie checks exercise all 25 personal replacements in each profile, retained common corrections, and selected English/Danish protected words. They also verify every encoded rule directly, since some original partial rules intentionally shadow longer rules during typing. The bilingual audit reports potential matches in the original rules for information; only personal-candidate problems fail validation. Compile both the default firmware and `QWERTY_ENABLE=yes` after regeneration; table size alone does not account for the autocorrect engine.

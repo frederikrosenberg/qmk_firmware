@@ -21,13 +21,21 @@
 #include "keymap_danish.h"
 
 enum layers {
+#ifdef QWERTY_ENABLE
     _QWERTY,
+#endif
     _CANARY,
     _NUM,
     _NAV,
     _SYM,
     _SHORTCUTS,
 };
+
+#ifdef QWERTY_ENABLE
+#define BASE_LAYOUT_TOGGLE TOGBASE
+#else
+#define BASE_LAYOUT_TOGGLE KC_NO
+#endif
 
 enum my_keycodes {
     CASEWRD = SAFE_RANGE,

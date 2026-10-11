@@ -16,7 +16,8 @@
 # All 400 original rules are retained with their original matching behavior,
 # plus 25 recurring personal corrections checked against English and Danish.
 # Existing rules are intentionally preserved at the user's request.
-# Generate user/autocorrect_data.h from this file after editing it.
+# This is the full master source; OLED builds use generated subsets.
+# Generate user/autocorrect_data_full.h from this file after editing it.
 #
 # Dictionary syntax:
 # Each line of this file defines one typo correction entry with the syntax
