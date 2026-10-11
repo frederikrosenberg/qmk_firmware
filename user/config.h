@@ -31,6 +31,7 @@
   #define SPLIT_OLED_ENABLE
   #define OLED_TIMEOUT 30000
   #define OLED_UPDATE_INTERVAL 100
+  #define OLED_SYMBOL_GUIDE_DELAY 1500
   #define OLED_FONT_H "font.h"
   #include "oled_glyphs.h"
   #define OLED_FONT_START 32

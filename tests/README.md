@@ -27,7 +27,7 @@ Also compile the Kyria firmware as described in the main README. USB fingerprint
 
 ## Autocorrect dictionary checks
 
-The complete source is `user/autocorrection_dict_extra.txt`, compiled into `user/autocorrect_data_full.h`. It preserves all 400 original corrections plus the 25 recurring personal corrections. The default OLED firmware uses the reduced 175-entry table; QWERTY-enabled builds use 154 entries. Both retain all 25 personal rules. `user/autocorrect_data.h` selects the appropriate generated table. Other personal candidates remain inactive. Check the master source and personal candidates with:
+The complete source is `user/autocorrection_dict_extra.txt`, compiled into `user/autocorrect_data_full.h`. It preserves all 400 original corrections plus 26 personal corrections. The default OLED firmware uses the reduced 171-entry table; QWERTY-enabled builds use 150 entries. Both retain all 26 personal rules. `user/autocorrect_data.h` selects the appropriate generated table. Other personal candidates remain inactive. Check the master source and personal candidates with:
 
 ```powershell
 uv run --with spylls==0.1.7 --with english-words==2.0.2 --with pyahocorasick==2.3.1 `
@@ -47,9 +47,9 @@ Regenerate the full table and the reduced profiles after editing the master sour
 uvx --with english-words==2.0.2 qmk generate-autocorrect-data `
     user/autocorrection_dict_extra.txt -o user/autocorrect_data_full.h
 if ($LASTEXITCODE -ne 0) { throw 'Autocorrect generation failed' }
-uv run tests/select_autocorrect.py --max-bytes 2668
+uv run tests/select_autocorrect.py --max-bytes 2588
 if ($LASTEXITCODE -ne 0) { throw 'Reduced dictionary generation failed' }
-uv run tests/select_autocorrect.py --max-bytes 2307 --profile qwerty
+uv run tests/select_autocorrect.py --max-bytes 2227 --profile qwerty
 if ($LASTEXITCODE -ne 0) { throw 'QWERTY dictionary generation failed' }
 foreach ($dictionaryProfile in @('full', 'reduced', 'qwerty')) {
     uv run tests/check_autocorrect_data.py --profile $dictionaryProfile
@@ -57,4 +57,4 @@ foreach ($dictionaryProfile in @('full', 'reduced', 'qwerty')) {
 }
 ```
 
-The generated-trie checks exercise all 25 personal replacements in each profile, retained common corrections, and selected English/Danish protected words. They also verify every encoded rule directly, since some original partial rules intentionally shadow longer rules during typing. The bilingual audit reports potential matches in the original rules for information; only personal-candidate problems fail validation. Compile both the default firmware and `QWERTY_ENABLE=yes` after regeneration; table size alone does not account for the autocorrect engine.
+The generated-trie checks exercise all 26 personal replacements in each profile, retained common corrections, and selected English/Danish protected words. They also verify every encoded rule directly, since some original partial rules intentionally shadow longer rules during typing. The bilingual audit reports potential matches in the original rules for information; only personal-candidate problems fail validation. Compile both the default firmware and `QWERTY_ENABLE=yes` after regeneration; table size alone does not account for the autocorrect engine.

@@ -14,7 +14,7 @@
 #
 #
 # Reduced OLED dictionary: all recurring personal rules, then common words.
-# 25 personal + 150 original rules; regenerate with tests/select_autocorrect.py.
+# 26 personal + 145 original rules; regenerate with tests/select_autocorrect.py.
 
 :clearence: -> clearance
 :sholud: -> should
@@ -41,6 +41,7 @@
 :ruway: -> runway
 :someting: -> something
 :tihs: -> this
+:useally: -> usually
 :htere        -> there
 abbout        -> about
 abotu         -> about
@@ -186,8 +187,3 @@ govement      -> government
 govenment     -> government
 goverment     -> government
 governmnet    -> government
-govorment     -> government
-govornment    -> government
-guaratee      -> guarantee
-garantee      -> guarantee
-gaurantee     -> guarantee

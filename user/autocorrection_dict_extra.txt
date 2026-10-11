@@ -14,7 +14,7 @@
 #
 #
 # All 400 original rules are retained with their original matching behavior,
-# plus 25 recurring personal corrections checked against English and Danish.
+# plus 26 personal corrections checked against English and Danish.
 # Existing rules are intentionally preserved at the user's request.
 # This is the full master source; OLED builds use generated subsets.
 # Generate user/autocorrect_data_full.h from this file after editing it.
@@ -498,3 +498,4 @@ wierd         -> weird
 :ruway: -> runway
 :someting: -> something
 :tihs: -> this
+:useally: -> usually

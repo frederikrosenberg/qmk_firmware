@@ -74,7 +74,7 @@ References: [QMK OS detection](https://docs.qmk.fm/features/os_detection), [Appl
 
 ## Displays and firmware space
 
-The default build enables both 128x64 OLEDs and retains the animated pet, WPM counter, modifier indicators, layer icons/text, OS indicator, symbol guide, matrix scan-rate counter, and 30-second sleep. QWERTY builds also show the layout name. The secondary display shows only the supplied ForeFlight emblem, vertically centered with eight-pixel margins, outside the symbol layer. The symbol guide includes all 30 symbol-layer keys, including the acute accent (`´`) and a solid vertical pipe (`|`). OLED builds define `DEBUG_MATRIX_SCAN_RATE` so the `MS` row shows scans per second; the regular build keeps the USB console disabled. Flash both halves with `./flash.ps1`; inspect the logo, change to/from SYM, type above 40 WPM, and check sleep/wake on the keyboard.
+The default build enables both 128x64 OLEDs and retains the animated pet, WPM counter, modifier indicators, layer icons/text, OS indicator, symbol guide, matrix scan-rate counter, and 30-second sleep. QWERTY builds also show the layout name. The secondary display shows only the supplied ForeFlight emblem, vertically centered with eight-pixel margins, until the symbol layer has stayed active for 1.5 seconds (`OLED_SYMBOL_GUIDE_DELAY` in `user/config.h`). Leaving SYM immediately restores the logo, and each new activation starts the delay again. This avoids guide flashes during brief Backspace/Enter use. The symbol guide includes all 30 symbol-layer keys, including the acute accent (`´`) and a solid vertical pipe (`|`). OLED builds define `DEBUG_MATRIX_SCAN_RATE` so the `MS` row shows scans per second; the regular build keeps the USB console disabled. Flash both halves with `./flash.ps1`; inspect the logo, change to/from SYM, type above 40 WPM, and check sleep/wake on the keyboard.
 
 Measured with the local QMK checkout and AVR GCC 15.2.0 for `splitkb/kyria/rev1` on 2026-10-11:
 
@@ -84,29 +84,31 @@ Measured with the local QMK checkout and AVR GCC 15.2.0 for `splitkb/kyria/rev1`
 | ForeFlight and all display functions, full autocorrect | 34,784 | 6,112 bytes over; link fails |
 | ForeFlight and all display functions, autocorrect omitted | 27,150 | 1,522 bytes free |
 | Optimized Canary build, full 425-entry dictionary (before logo text removal/Mac legends) | 32,158 | 3,486 bytes over |
-| Optimized Canary build, 175-entry dictionary and all display functions | 28,658 | 14 bytes free |
-| Optimized QWERTY/Canary build, 154-entry dictionary and all display functions | 28,660 | 12 bytes free |
+| Previous optimized Canary build, 175-entry dictionary and all display functions | 28,658 | 14 bytes free |
+| Previous optimized QWERTY/Canary build, 154-entry dictionary and all display functions | 28,660 | 12 bytes free |
+| Canary build with delayed symbol guide, 171-entry dictionary and all display functions | 28,646 | 26 bytes free |
+| QWERTY/Canary build with delayed symbol guide, 150-entry dictionary and all display functions | 28,652 | 20 bytes free |
 | Optimized Canary diagnostic build, autocorrect omitted, all display functions | 27,048 | 1,624 bytes free |
 
 The optimized build removes encoder support (this keyboard has no knobs), QWERTY by default, QMK's unused native OSM/OSL system, unused/duplicate font glyphs, and duplicate animation pixel rows. The compact font is 906 bytes, saving 630 bytes versus the original font while adding Mac modifier legends. Existing glyphs and animation frames preserve their original pixels. Your custom `OS_*` one-shot modifiers, Caps Word/snake case, Mac/Windows detection, word-editing overrides, combos, and media keys remain enabled. RGB, console, command mode, and other unused features are disabled; WPM and deferred execution remain enabled for the animation. LTO is already enabled. See [QMK's AVR size guidance](https://docs.qmk.fm/squeezing_avr).
 
 The OS row shows the effective Mac/Windows mode, including manual overrides and the Windows fallback for unknown hosts. It replaces the layout row when QWERTY is disabled; QWERTY builds show OS on the spare row below the title. The modifier row follows that same mode. Mac mode shows Control (⌃), Option (⌥), outlined Shift (⇧), and Command (⌘), in [Apple's modifier order](https://developer.apple.com/design/human-interface-guidelines/keyboards). Windows mode retains its previous legends and order. Both left/right modifiers and your custom queued `OS_*` modifiers highlight the matching legend.
 
-`QWERTY_ENABLE=no` is the default. Use `./flash.ps1 -Qwerty` or add `-e QWERTY_ENABLE=yes` to `qmk compile` to restore its keymap, NUM top-right base-layout toggle, and display labels. That flag automatically selects a smaller 154-entry dictionary. Both profiles retain all 25 recurring personal rules. Build sizes depend on the QMK revision and compiler; always check the size before flashing, since the default build has very little remaining headroom.
+`QWERTY_ENABLE=no` is the default. Use `./flash.ps1 -Qwerty` or add `-e QWERTY_ENABLE=yes` to `qmk compile` to restore its keymap, NUM top-right base-layout toggle, and display labels. That flag automatically selects a smaller 150-entry dictionary. Both profiles retain all 26 personal rules. Build sizes depend on the QMK revision and compiler; always check the size before flashing, since the default build has very little remaining headroom.
 
 `user/font_source.h` is the editable glyph source; firmware uses the generated compact `user/font.h`. Source slots 0x80–0x83 contain the Mac Command and outlined Shift symbols. After changing font glyphs or adding `OLED_GLYPH_*` references, run `uv run tests/compact_oled_font.py`, then `uv run tests/compact_oled_font.py --check`.
 
 ## Autocorrect
 
-Autocorrect is enabled in the default firmware. `user/autocorrection_dict_reduced.txt` includes all 25 recurring personal corrections plus the first 150 original rules, which prioritize common words. Its 175 entries occupy a 2,655-byte trie. The QWERTY profile uses `user/autocorrection_dict_qwerty.txt` with 154 entries (25 personal + 129 original), a 2,296-byte trie. One-off personal candidates stay excluded. To build without autocorrect, pass `-e AUTOCORRECT_ENABLE=no`.
+Autocorrect is enabled in the default firmware. `user/autocorrection_dict_reduced.txt` includes all 26 personal corrections plus the first 145 original rules, which prioritize common words. Its 171 entries occupy a 2,581-byte trie. The QWERTY profile uses `user/autocorrection_dict_qwerty.txt` with 150 entries (26 personal + 124 original), a 2,226-byte trie. One-off personal candidates stay excluded. To build without autocorrect, pass `-e AUTOCORRECT_ENABLE=no`.
 
-`user/autocorrect_data.h` selects the generated reduced, QWERTY, or full table. The complete 425-entry dictionary remains preserved in `user/autocorrection_dict_extra.txt` and `user/autocorrect_data_full.h`; build it with displays disabled:
+`user/autocorrect_data.h` selects the generated reduced, QWERTY, or full table. The complete 426-entry dictionary remains preserved in `user/autocorrection_dict_extra.txt` and `user/autocorrect_data_full.h`; build it with displays disabled:
 
 ```sh
 qmk compile -kb splitkb/kyria/rev1 -km frederikrosenberg -e TARGET=k -e KEYBOARD_FILESAFE=k -e OLED_ENABLE=no -e AUTOCORRECT_PROFILE=full
 ```
 
-The full source preserves all 400 original corrections with their original matching behavior plus 25 recurring personal typos, including `clearence`, `sholud`, and `hcanges`. The reduced profiles select subsets without changing trigger patterns or replacements.
+The full source preserves all 400 original corrections with their original matching behavior plus 26 personal typos, including `clearence`, `sholud`, `hcanges`, and the requested `useally` to `usually` correction. The reduced profiles select subsets without changing trigger patterns or replacements.
 
 The new personal rules pass checks against Danish, US English, UK English, and broader English word lists, including inflections and fragments around Danish letters. All personal corrections require whole-word matches. Findings for original rules are informational; those rules remain unchanged. Word lists cannot cover every name, identifier, rare word, or new Danish compound. See [the dictionary checks](tests/README.md#autocorrect-dictionary-checks) for regeneration and validation commands.
 

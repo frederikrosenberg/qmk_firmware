@@ -1,6 +1,6 @@
 """Generate the largest common-word prefix within a measured trie byte budget.
 
-Always include the 25 recurring personal rules. The original dictionary lists
+Always include every active personal rule. The original dictionary lists
 common-word corrections first; one-off personal candidates stay excluded.
 This budgets the table only. The firmware must still be compiled and size-checked.
 """
@@ -20,7 +20,7 @@ generic_text, personal_text = source.split("# Recurring personal corrections", 1
 rules = lambda text: [line.strip() for line in text.splitlines()
                       if "->" in line and not line.lstrip().startswith("#")]
 generic, personal = rules(generic_text), rules(personal_text)
-assert len(generic) == 400 and len(personal) == 25
+assert len(generic) == 400 and len(personal) >= 25
 license_text = source.split("# All 400 original rules", 1)[0]
 with tempfile.TemporaryDirectory(prefix="qmk-reduced-autocorrect-") as directory:
     temp = Path(directory)

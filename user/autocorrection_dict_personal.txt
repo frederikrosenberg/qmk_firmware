@@ -22,7 +22,7 @@
 # guarantee safety for every name, identifier, rare word, or new compound.
 # The active dictionary is now audited too; most original rules are retained.
 #
-# The 25 recurring corrections below are included in the active source,
+# The 25 recurring corrections and explicitly requested correction below are included in the active source,
 # user/autocorrection_dict_extra.txt and all reduced firmware profiles.
 # The one-off candidates remain inactive. Regenerate the active header after
 # changing the master source; editing this candidate file alone has no effect.
@@ -79,6 +79,9 @@
 :someting: -> something
 # Observed 2 times
 :tihs: -> this
+
+# Explicitly requested (2026-10-11)
+:useally: -> usually
 
 # One-off candidates not already listed in the existing dictionary
 :acitve: -> active

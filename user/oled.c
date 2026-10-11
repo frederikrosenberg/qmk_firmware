@@ -327,24 +327,28 @@ void render_master(void) {
 }
 
 void render_slave(void) {
+    static bool symbols_active;
+    static uint32_t symbols_since;
+    bool active = get_highest_layer(layer_state | default_layer_state) == _SYM;
+    if (active && !symbols_active) {
+        symbols_since = timer_read32();
+    }
+    symbols_active = active;
+    bool symbols = active && timer_elapsed32(symbols_since) >= OLED_SYMBOL_GUIDE_DELAY;
+
     // Clear when switching views so logo pixels cannot remain in the guide.
     static bool initialized;
     static bool showing_symbols;
-    bool symbols = get_highest_layer(layer_state | default_layer_state) == _SYM;
     if (!initialized || symbols != showing_symbols) {
         oled_clear();
         showing_symbols = symbols;
         initialized = true;
     }
-    switch (get_highest_layer(layer_state | default_layer_state)) {
-        case _SYM:
-            oled_set_cursor(0, 1);
-            render_symboles();
-            break;
-        default:
-            oled_set_cursor(0, 1);
-            render_logos();
-            break;
+    oled_set_cursor(0, 1);
+    if (symbols) {
+        render_symboles();
+    } else {
+        render_logos();
     }
 }
 

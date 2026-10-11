@@ -14,7 +14,7 @@
 #
 #
 # Reduced OLED dictionary: all recurring personal rules, then common words.
-# 25 personal + 129 original rules; regenerate with tests/select_autocorrect.py.
+# 26 personal + 124 original rules; regenerate with tests/select_autocorrect.py.
 
 :clearence: -> clearance
 :sholud: -> should
@@ -41,6 +41,7 @@
 :ruway: -> runway
 :someting: -> something
 :tihs: -> this
+:useally: -> usually
 :htere        -> there
 abbout        -> about
 abotu         -> about
@@ -165,8 +166,3 @@ apparrent     -> apparent
 asthetic      -> aesthetic
 auxilary      -> auxiliary
 auxillary     -> auxiliary
-auxilliary    -> auxiliary
-bankrupcy     -> bankruptcy
-busness       -> business
-bussiness     -> business
-calander      -> calendar
